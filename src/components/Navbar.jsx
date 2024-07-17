@@ -46,6 +46,9 @@ function Navbar({ setdata }) {
               placeholder="Search Products"
             />
           </div>
+          <Link to='/login' className="logins">
+          <button className="btn btn-primary">Log In</button>
+          </Link>
           <Link to="/cart" className="cart">
             <button type="button" className="btn btn-primary position-relative">
               <FontAwesomeIcon icon={faCartShopping} />
@@ -55,6 +58,7 @@ function Navbar({ setdata }) {
               </span>
             </button>
           </Link>
+          
         </div>
         {location.pathname == "/" && (
           <div className="navbarwrapper">

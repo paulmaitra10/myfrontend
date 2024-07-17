@@ -9,6 +9,7 @@ import Cart from "./components/Cart";
 import { items } from "./ProductData";
 import { useState } from "react";
 import {createContext } from "react";
+import Login from "./components/Login";
 const UserContext = createContext();
 function App() {
   const [data, setdata] = useState([...items]);
@@ -25,6 +26,7 @@ function App() {
         <Route path="/product/:id" element={<PRoductDetails />} />
         <Route path="/search/:term" element={<SearchItems />} />
         <Route path="/cart" element={<Cart/>}/>
+        <Route path="/login" element={<Login/>}/>
       </Routes>
      </Router>
      </UserContext.Provider>
