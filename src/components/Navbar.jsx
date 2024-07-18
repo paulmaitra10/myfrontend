@@ -6,9 +6,11 @@ import { items } from "../ProductData";
 import { UserContext } from "../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { useAuth0 } from "@auth0/auth0-react";
 // console.log(items);
 
 function Navbar({ setdata }) {
+  const {loginWithRedirect,isAuthenticated,logout}=useAuth0();
   console.log(useLocation());
   const location=useLocation();
   const [cart, setcart] = useContext(UserContext);
@@ -47,7 +49,10 @@ function Navbar({ setdata }) {
             />
           </div>
           <Link to='/login' className="logins">
-          <button className="btn btn-primary">Log In</button>
+          {isAuthenticated?(
+            <button className="btn btn-primary" onClick={logout()}>Log Out</button>
+          ):
+          (<button className="btn btn-primary" onClick={loginWithRedirect()}>Log In</button>)}
           </Link>
           <Link to="/cart" className="cart">
             <button type="button" className="btn btn-primary position-relative">

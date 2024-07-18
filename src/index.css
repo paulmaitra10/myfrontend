@@ -95,15 +95,14 @@ input::placeholder{
     gap: 25px;
     justify-content: center;
     align-items: center;
-    background-color: #cdcade;
-    width: 350px;
+    width: 550px;
     height: 250px;
 }
 .input1{
     display: flex;
     align-items: center;
     margin: auto;
-    width: 300px;
+    width: 360px;
     height: 40px;
     background: #eaeaea;
     border-radius: 6px;
@@ -120,8 +119,9 @@ input::placeholder{
     background:transparent;
     border: none;
     outline: none;
-    color: #797979;
+    color: white;
     font-size: 19px;
+    background-color: rgb(77, 12, 105);
 }
 .forgot-password{
     padding-left: 62px;

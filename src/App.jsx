@@ -26,7 +26,6 @@ function App() {
         <Route path="/product/:id" element={<PRoductDetails />} />
         <Route path="/search/:term" element={<SearchItems />} />
         <Route path="/cart" element={<Cart/>}/>
-        <Route path="/login" element={<Login/>}/>
       </Routes>
      </Router>
      </UserContext.Provider>
