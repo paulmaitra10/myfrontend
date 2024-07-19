@@ -52,7 +52,7 @@ function Navbar({ setdata }) {
           {isAuthenticated?(
             <button className="btn btn-primary" onClick={logout({returnTo: window.location.origin})}>Log Out</button>
           ):
-          (<button className="btn btn-primary" onClick={loginWithRedirect()}>Log In</button>)}
+          (<button className="btn btn-primary" onClick={loginWithRedirect}>Log In</button>)}
         
           <Link to="/cart" className="cart">
             <button type="button" className="btn btn-primary position-relative">
