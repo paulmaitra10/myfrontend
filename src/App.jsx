@@ -9,7 +9,6 @@ import Cart from "./components/Cart";
 import { items } from "./ProductData";
 import { useState } from "react";
 import {createContext } from "react";
-import Login from "./components/Login";
 const UserContext = createContext();
 function App() {
   const [data, setdata] = useState([...items]);
