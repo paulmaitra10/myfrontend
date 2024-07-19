@@ -48,12 +48,12 @@ function Navbar({ setdata }) {
               placeholder="Search Products"
             />
           </div>
-          <Link to='/login' className="logins">
+          
           {isAuthenticated?(
             <button className="btn btn-primary" onClick={logout()}>Log Out</button>
           ):
           (<button className="btn btn-primary" onClick={loginWithRedirect()}>Log In</button>)}
-          </Link>
+        
           <Link to="/cart" className="cart">
             <button type="button" className="btn btn-primary position-relative">
               <FontAwesomeIcon icon={faCartShopping} />
