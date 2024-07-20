@@ -50,7 +50,7 @@ function Navbar({ setdata }) {
           </div>
           
           {isAuthenticated?(
-            <button className="btn btn-primary" onClick={logout()}>Log Out</button>
+            <button className="btn btn-primary" onClick={logout({returnTo : window.location.origin})}>Log Out</button>
           ):
           (<button className="btn btn-primary" onClick={loginWithRedirect()}>Log In</button>)}
         
