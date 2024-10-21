@@ -56,8 +56,8 @@ input::placeholder{
 }
 .items{
     color:white;
-    background-color: #4b1b78;
-    text-decoration: none;
+    background-color: rgb(38, 109, 214);
+    text-decoration:none;
     font: bold;
 }
 .container1{

@@ -5,13 +5,53 @@ import { items } from '../ProductData';
 import { Link } from 'react-router-dom';
 
 function Cart() {
-  const [cart,setcart] =useContext(UserContext);
-  const handleRemove=(e)=>{
-    const element=cart.filter((i)=>i.element[0].id!=e.target.value)
-    setcart(element);
+  const {cart,setcart} =useContext(UserContext);
+  console.log(cart);
+  
+  const handleRemove=async (e)=>{
+    // const element=cart.filter((i)=>i.element[0].id!=e.target.value)
+    // setcart(element);
+    console.log(e.target.value);
+    
+    try{
+      const token=localStorage.getItem('token');
+      const response=await fetch('http://localhost:5000/api/orders/remove',{
+        method:'DELETE',
+        body:JSON.stringify({productId:e.target.value}),
+        headers:{
+          'Content-Type': 'application/json',
+          'authorization':`Bearer ${token}`,
+        },
+      })
+      const carts=await response.json();
+      console.log(carts);
+      // const element=cart.filter((i)=>{
+      //   i.id!=carts.id
+      // });
+      setcart(carts);
+    }
+    catch(err){
+      console.log(err);   
+    }
   }
-  const handleClearCart=()=>{
-    setcart([]);
+  const handleClearCart=async ()=>{
+    // setcart([]);
+    try{
+      const token=localStorage.getItem('token');
+      const response=await fetch('http://localhost:5000/api/orders/totalremove',{
+        method:'DELETE',
+        headers:{
+          'Content-Type': 'application/json',
+          'authorization':`Bearer ${token}`,
+        },
+      }
+      )
+      setcart([]);
+    }
+    catch(err){
+      console.log(err);
+      
+    }
   }
   if (cart.length==0) {
     return(
@@ -30,18 +70,20 @@ function Cart() {
         <div className="row">
           {
           cart.map((product,i) => {
-            console.log(product.element[0].imgSrc);
+            // console.log(product[0].imgSrc);
+            // console.log(product.imgSrc);
+            
             return (
                 <div key={i} className="col-lg-4 my-3 text-center">
                   <div className="card" style={{ width: "18rem" }}>
-                    <Link to={`/product.element[0]/${product.element[0].id}`} style={{display:'flex',justifyContent:'center',alignItems:'center'}}><img src={product.element[0].imgSrc} className="card-img-top" alt="..." /></Link>
+                    <Link to={`/product[0]/${product.id}`} style={{display:'flex',justifyContent:'center',alignItems:'center'}}><img src={product.imgSrc} className="card-img-top" alt="..." /></Link>
                     <div className="card-body">
-                      <h5 className="card-title">{product.element[0].title}</h5>
+                      <h5 className="card-title">{product.title}</h5>
                       <p className="card-text">
-                        {product.element[0].description}
+                        {product.description}
                       </p>
-                     <button className="btn btn-primary mx-3">{product.element[0].price} ₹</button>
-                     <button className="btn btn-warning" onClick={handleRemove} value={product.element[0].id}>Remove from Cart</button>
+                     <button className="btn btn-primary mx-3">{product.price} ₹</button>
+                     <button className="btn btn-warning" onClick={handleRemove} value={product.id}>Remove from Cart</button>
                     </div>
                   </div>
                 </div>
