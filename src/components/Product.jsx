@@ -21,7 +21,7 @@ const Product=({items})=> {
     // console.log(cart);
  if(token)
     {  try{
-      const response=await fetch('http://localhost:5000/api/orders/',{
+      const response=await fetch('https://jlt-xi.vercel.app/api/orders/',{
         method:'POST',
         body:JSON.stringify({productId:e.target.value}),
         headers: {
@@ -55,7 +55,7 @@ const Product=({items})=> {
   const fetchData=async ()=>{
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/products/', {
+        const response = await fetch('https://jlt-xi.vercel.app/api/products/', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -18,7 +18,7 @@ function App() {
   const fetchCart=async ()=>{
    if(token){ try{
 
-      const response=await fetch('http://localhost:5000/api/orders/cart',{
+      const response=await fetch('https://jlt-xi.vercel.app/api/orders/cart',{
         method:'GET',
         headers:{
           'Content-Type':'application/json',
@@ -37,13 +37,12 @@ function App() {
       try {
         console.log('gg');
         
-        const response = await fetch('http://localhost:5000/api/products/', {
+        const response = await fetch('https://jlt-xi.vercel.app/api/products/', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
         });
-  
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }

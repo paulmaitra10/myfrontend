@@ -15,7 +15,7 @@ function Cart() {
     
     try{
       const token=localStorage.getItem('token');
-      const response=await fetch('http://localhost:5000/api/orders/remove',{
+      const response=await fetch('https://jlt-xi.vercel.app/api/orders/remove',{
         method:'DELETE',
         body:JSON.stringify({productId:e.target.value}),
         headers:{
@@ -38,7 +38,7 @@ function Cart() {
     // setcart([]);
     try{
       const token=localStorage.getItem('token');
-      const response=await fetch('http://localhost:5000/api/orders/totalremove',{
+      const response=await fetch('https://jlt-xi.vercel.app/api/orders/totalremove',{
         method:'DELETE',
         headers:{
           'Content-Type': 'application/json',
