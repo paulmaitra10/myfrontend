@@ -20,7 +20,18 @@ const Product=({items})=> {
     // setcart([...cart,{element}])
     // console.log(cart);
  if(token)
-    {  try{
+    { 
+      toast('Item is added to cart', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      try{
       const response=await fetch('https://jlt-xi.vercel.app/api/orders/',{
         method:'POST',
         body:JSON.stringify({productId:e.target.value}),
@@ -34,16 +45,6 @@ const Product=({items})=> {
       const result=await response.json();
       console.log(result);
       setcart([...cart,result]);
-      toast('Item is added to cart', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
     }
     catch(err){
       console.log(err); 

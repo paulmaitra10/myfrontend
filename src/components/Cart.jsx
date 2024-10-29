@@ -11,8 +11,7 @@ function Cart() {
   const handleRemove=async (e)=>{
     // const element=cart.filter((i)=>i.element[0].id!=e.target.value)
     // setcart(element);
-    console.log(e.target.value);
-    
+    console.log(e.target.value); 
     try{
       const token=localStorage.getItem('token');
       const response=await fetch('https://jlt-xi.vercel.app/api/orders/remove',{
@@ -35,7 +34,7 @@ function Cart() {
     }
   }
   const handleClearCart=async ()=>{
-    // setcart([]);
+    setcart([]);
     try{
       const token=localStorage.getItem('token');
       const response=await fetch('https://jlt-xi.vercel.app/api/orders/totalremove',{
@@ -46,7 +45,6 @@ function Cart() {
         },
       }
       )
-      setcart([]);
     }
     catch(err){
       console.log(err);
