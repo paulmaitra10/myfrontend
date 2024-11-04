@@ -5,8 +5,11 @@ import { UserContext } from "../App.jsx";
 import Cart from "./Cart.jsx";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { faL } from "@fortawesome/free-solid-svg-icons";
+import Loader from "./Loader.jsx";
 
 const Product=({items})=> {
+  const [loading, setloading] = useState(false);
   const token=localStorage.getItem('token')
   console.log(items);
   const notify = () => toast("Item added to cart");
@@ -19,18 +22,9 @@ const Product=({items})=> {
     // console.log(element);
     // setcart([...cart,{element}])
     // console.log(cart);
+    setloading(true);
  if(token)
     { 
-      toast('Item is added to cart', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
       try{
       const response=await fetch('https://jlt-xi.vercel.app/api/orders/',{
         method:'POST',
@@ -42,9 +36,19 @@ const Product=({items})=> {
       })
       // console.log(response);
       
-      const result=await response.json();
+      const result=await response.json().then(setloading(false))
       console.log(result);
       setcart([...cart,result]);
+      toast('Item is added to cart', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     }
     catch(err){
       console.log(err); 
@@ -54,8 +58,8 @@ const Product=({items})=> {
     }
   }
   const fetchData=async ()=>{
-    const fetchProducts = async () => {
       try {
+        setloading(true)
         const response = await fetch('https://jlt-xi.vercel.app/api/products/', {
           method: 'GET',
           headers: {
@@ -74,10 +78,8 @@ const Product=({items})=> {
       } catch (err) {
         setError(err.message);
       } finally {
-        setLoading(false);
-      }
-    };
-  
+        setloading(false);
+      }  
     // useEffect to call the fetchProducts function when the component mounts
   
   }
@@ -89,7 +91,7 @@ const Product=({items})=> {
     <>
     <ToastContainer
 position="top-right"
-autoClose={5000}
+autoClose={2000}
 hideProgressBar={false}
 newestOnTop={false}
 closeOnClick
@@ -111,7 +113,7 @@ theme="light"/>
                         {product.description}
                       </p>
                      <button className="btn btn-primary mx-3">{product.price} ₹</button>
-                     <button className="btn btn-warning" value={product.id} onClick={AddtoCart} >Add To Cart</button>
+                     <button className="btn btn-warning" value={product.id} onClick={AddtoCart} disabled={loading} >{loading?<Loader/>:'Add to Cart'}</button>
                     </div>
                   </div>
                 </div>

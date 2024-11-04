@@ -1,10 +1,12 @@
-import React, { useContext,createContext, useEffect } from 'react'
+import React, { useContext,useState } from 'react'
 import { UserContext } from '../App';
 import Product from './Product';
 import { items } from '../ProductData';
 import { Link } from 'react-router-dom';
+import Loader from './Loader';
 
 function Cart() {
+  const [loading, setloading] = useState(false)
   const {cart,setcart} =useContext(UserContext);
   console.log(cart);
   
@@ -12,6 +14,7 @@ function Cart() {
     // const element=cart.filter((i)=>i.element[0].id!=e.target.value)
     // setcart(element);
     console.log(e.target.value); 
+    setloading(true);
     try{
       const token=localStorage.getItem('token');
       const response=await fetch('https://jlt-xi.vercel.app/api/orders/remove',{
@@ -31,6 +34,8 @@ function Cart() {
     }
     catch(err){
       console.log(err);   
+    }finally{
+      setloading(false);
     }
   }
   const handleClearCart=async ()=>{
@@ -81,7 +86,7 @@ function Cart() {
                         {product.description}
                       </p>
                      <button className="btn btn-primary mx-3">{product.price} ₹</button>
-                     <button className="btn btn-warning" onClick={handleRemove} value={product.id}>Remove from Cart</button>
+                     <button className="btn btn-warning" onClick={handleRemove} value={product.id} disabled={loading}>{loading?<Loader/>:'Remove from Cart'}</button>
                     </div>
                   </div>
                 </div>

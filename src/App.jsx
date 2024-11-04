@@ -11,13 +11,15 @@ import { useState } from "react";
 import {createContext } from "react";
 import Login from "./components/Login";
 import Signup from './components/Signup';
+import Loader from "./components/Loader";
 const UserContext = createContext();
 function App() {
+  const [loading, setloading] = useState(false);
   const [data, setdata] = useState([]);
   const token=localStorage.getItem('token');
   const fetchCart=async ()=>{
+   setloading(true);
    if(token){ try{
-
       const response=await fetch('https://jlt-xi.vercel.app/api/orders/cart',{
         method:'GET',
         headers:{
@@ -31,10 +33,15 @@ function App() {
     }
     catch(err){
       console.log(err);
-    }}
+    }
+    finally{
+      setloading(false);
+    }
+  }
   }
   const fetchData=async ()=>{
       try {
+        setloading(true);
         console.log('gg');
         
         const response = await fetch('https://jlt-xi.vercel.app/api/products/', {
@@ -54,6 +61,9 @@ function App() {
       } catch (err) {
         setError(err.message);
       }
+      finally{
+        setloading(false);
+      }
     // useEffect to call the fetchProducts function when the component mounts
   }
   useEffect(() => {
@@ -70,6 +80,7 @@ function App() {
     <UserContext.Provider value={{cart,setcart,loggedin,setloggedin}}>
      <Router>
       <Navbar setdata={setdata}/>
+      {loading?<Loader/>:''};
       <Routes>
         <Route path="/" element={<Product items={data}/>}/>
         <Route path="/product/:id" element={<PRoductDetails />} />

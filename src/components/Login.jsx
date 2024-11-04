@@ -2,14 +2,17 @@ import React, { useCallback, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import { Link } from "react-router-dom";
+import { faL } from "@fortawesome/free-solid-svg-icons";
+import Loader from "./Loader";
 function Login() {
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setloading] = useState(false);
   const navigate=useNavigate();
   const handleSubmit = async (e) => {
+    setloading(true);
     e.preventDefault();
-    
     try {
       const response = await fetch('https://jlt-xi.vercel.app/api/users/login', {
         method: 'POST',
@@ -26,7 +29,7 @@ function Login() {
         throw new Error('Invalid Email or Password');
       }
 
-      const data = await response.json();
+      const data = await response.json().then(setloading(false))
       console.log('Login successful', data);
 
       // Handle login success (e.g., save token, redirect)
@@ -35,12 +38,13 @@ function Login() {
       window.location.href="/"
     } catch (err) {
       setError(err.message);
-    } 
+    }
   };
 
   return (
     <div style={styles.container}>
       <h2>Login</h2>
+      {loading?<Loader/>:''}
       <form onSubmit={handleSubmit} style={styles.form}>
         <div style={styles.formGroup}>
           <label>email:</label>

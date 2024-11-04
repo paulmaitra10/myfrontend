@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import Loader from "./Loader";
 
 function Signup() {
   const [name, setUsername] = useState("");
@@ -57,6 +58,7 @@ function Signup() {
   return (
     <div style={styles.container}>
       <h2>Signup</h2>
+      {loading?<Loader/>:''}
       <form onSubmit={handleSubmit} style={styles.form}>
         <div style={styles.formGroup}>
           <label>name:</label>
