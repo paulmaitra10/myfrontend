@@ -11,17 +11,9 @@ import Loader from "./Loader.jsx";
 const Product=({items})=> {
   const [loading, setloading] = useState(false);
   const token=localStorage.getItem('token')
-  console.log(items);
   const notify = () => toast("Item added to cart");
   const {cart,setcart}=useContext(UserContext);
   const AddtoCart=async (e)=>{
-    // console.log(e.target.value);
-    // console.log(items);
-    // e.target
-    // const element = items.filter((i)=>i.id==e.target.value)
-    // console.log(element);
-    // setcart([...cart,{element}])
-    // console.log(cart);
     setloading(true);
  if(token)
     { 
@@ -34,10 +26,7 @@ const Product=({items})=> {
           'authorization': `Bearer ${token}` // Add JWT token to the Authorization header
         },
       })
-      // console.log(response);
-      
-      const result=await response.json().then(setloading(false))
-      console.log(result);
+      const result=await response.json().then(setloading(false));
       setcart([...cart,result]);
       toast('Item is added to cart', {
         position: "top-right",
@@ -51,7 +40,7 @@ const Product=({items})=> {
         });
     }
     catch(err){
-      console.log(err); 
+     alert(err)
     }}
     else{
       alert('You need to login first')
@@ -73,8 +62,6 @@ const Product=({items})=> {
   
         const data = await response.json();
         setdata(data);
-        console.log(items);
-        
       } catch (err) {
         setError(err.message);
       } finally {
@@ -86,7 +73,6 @@ const Product=({items})=> {
   useEffect(() => {
     fetchData;
   }, []);
-  // console.log(items);
   return (
     <>
     <ToastContainer

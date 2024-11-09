@@ -28,11 +28,10 @@ function App() {
         },
       })
       const items=await response.json();
-      console.log(items);
       setcart(items);
     }
     catch(err){
-      console.log(err);
+      alert('Unable to fetch your cart at the moment')
     }
     finally{
       setloading(false);
@@ -42,8 +41,6 @@ function App() {
   const fetchData=async ()=>{
       try {
         setloading(true);
-        console.log('gg');
-        
         const response = await fetch('https://jlt-xi.vercel.app/api/products/', {
           method: 'GET',
           headers: {
@@ -56,8 +53,6 @@ function App() {
   
         const data = await response.json();
         setdata(data);
-        console.log(data);
-        
       } catch (err) {
         setError(err.message);
       }
@@ -74,7 +69,6 @@ function App() {
   
   const [disable, setdisable] = useState(false);
   const [loggedin, setloggedin] = useState(false);
-  console.log(data);
   return (
     <>
     <UserContext.Provider value={{cart,setcart,loggedin,setloggedin}}>

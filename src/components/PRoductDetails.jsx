@@ -8,12 +8,9 @@ function PRoductDetails() {
   const [relatedProducts, setrelatedProducts] = useState([])
   useEffect(() => {
     const filterProduct = items.filter((i) => i.id == id);
-    console.log(filterProduct);
     setproduct(filterProduct[0]);
-
     const relProducts=items.filter((i)=>i.category===product.category)
     setrelatedProducts([...relProducts])
-    console.log(relatedProducts);
   }, [id,product.category]);
   return (
     <>

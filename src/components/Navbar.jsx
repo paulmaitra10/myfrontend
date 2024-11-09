@@ -7,35 +7,12 @@ import { UserContext } from "../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useAuth0 } from "@auth0/auth0-react";
-// console.log(items);
-
 function Navbar({ setdata}) {  
   const navigate=useNavigate();
   const [products, setproducts] = useState();
   const {cart,setcart}=useContext(UserContext);
-  // const [items, setitems] = useState(data);
-  console.log(products);
-  // const fetchCart=async ()=>{
-  //   if(token){ try{
-  //      const response=await fetch('http://localhost:5000/api/orders/cart',{
-  //        method:'GET',
-  //        headers:{
-  //          'Content-Type':'application/json',
-  //           'authorization': `Bearer ${token}`,
-  //        },
-  //      })
-  //      const items=await response.json();
-  //      console.log(items);
-  //      setcart(items);
-  //    }
-  //    catch(err){
-  //      console.log(err);
-  //    }}
-  //  }
   const fetchdata=async ()=>{
-    try {
-      console.log('gg');
-      
+    try {   
       const response = await fetch('https://jlt-xi.vercel.app/api/products/', {
         method: 'GET',
         headers: {
@@ -49,7 +26,6 @@ function Navbar({ setdata}) {
 
       const data = await response.json();
       setproducts(data);
-      console.log(data);
       
     } catch (err) {
       setError(err.message);
@@ -63,7 +39,6 @@ useEffect(() => {
 }, []);
 
   const {loginWithRedirect,isAuthenticated,logout}=useAuth0();
-  console.log(useLocation());
   const location=useLocation();
   const token=localStorage.getItem('token');
   const handleNoFilter = () => {
@@ -78,7 +53,6 @@ useEffect(() => {
     setdata(element);
   };
   const handleChange = (e) => {
-    console.log(e.target.value);
     const element = products.filter(
       (i) =>
         i.title.toLowerCase().includes(e.target.value.toLowerCase()) ||

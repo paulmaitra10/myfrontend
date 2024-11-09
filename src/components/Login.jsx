@@ -29,9 +29,7 @@ function Login() {
         throw new Error('Invalid Email or Password');
       }
 
-      const data = await response.json().then(setloading(false))
-      console.log('Login successful', data);
-
+      const data = await response.json().then(setloading(false));
       // Handle login success (e.g., save token, redirect)
       localStorage.setItem('token', data.token);
       // navigate('/');

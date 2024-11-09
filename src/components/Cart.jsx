@@ -7,13 +7,8 @@ import Loader from './Loader';
 
 function Cart() {
   const [loading, setloading] = useState(false)
-  const {cart,setcart} =useContext(UserContext);
-  console.log(cart);
-  
+  const {cart,setcart} =useContext(UserContext); 
   const handleRemove=async (e)=>{
-    // const element=cart.filter((i)=>i.element[0].id!=e.target.value)
-    // setcart(element);
-    console.log(e.target.value); 
     setloading(true);
     try{
       const token=localStorage.getItem('token');
@@ -26,14 +21,10 @@ function Cart() {
         },
       })
       const carts=await response.json();
-      console.log(carts);
-      // const element=cart.filter((i)=>{
-      //   i.id!=carts.id
-      // });
       setcart(carts);
     }
     catch(err){
-      console.log(err);   
+      alert("Unable to remove your product from the cart") 
     }finally{
       setloading(false);
     }
@@ -52,8 +43,7 @@ function Cart() {
       )
     }
     catch(err){
-      console.log(err);
-      
+     alert("Unable to clear your Cart at the moment")
     }
   }
   if (cart.length==0) {
@@ -72,10 +62,7 @@ function Cart() {
     <div className="container my-5">
         <div className="row">
           {
-          cart.map((product,i) => {
-            // console.log(product[0].imgSrc);
-            // console.log(product.imgSrc);
-            
+          cart.map((product,i) => {            
             return (
                 <div key={i} className="col-lg-4 my-3 text-center">
                   <div className="card" style={{ width: "18rem" }}>
