@@ -43,7 +43,7 @@ const Product=({items})=> {
      alert(err)
     }}
     else{
-      alert('You need to login first')
+     window.location.href='/login'
     }
   }
   const fetchData=async ()=>{
