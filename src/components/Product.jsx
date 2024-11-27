@@ -1,5 +1,5 @@
 import React, { useContext,useEffect } from "react";
-import { Link, useInRouterContext } from "react-router-dom";
+import { Link, useInRouterContext, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { UserContext } from "../App.jsx";
 import Cart from "./Cart.jsx";
@@ -8,7 +8,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { faL } from "@fortawesome/free-solid-svg-icons";
 import Loader from "./Loader.jsx";
 
+
 const Product=({items})=> {
+  const navigate=useNavigate();
   const [loading, setloading] = useState(false);
   const token=localStorage.getItem('token')
   const notify = () => toast("Item added to cart");
@@ -43,7 +45,7 @@ const Product=({items})=> {
      alert(err)
     }}
     else{
-     window.location.href='/login'
+    navigate("/login");
     }
   }
   const fetchData=async ()=>{
