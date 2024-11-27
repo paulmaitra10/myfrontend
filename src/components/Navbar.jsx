@@ -105,6 +105,7 @@ useEffect(() => {
               onChange={handleChange}
               type="text"
               placeholder="Search Products"
+              style={{borderRadius:'50px',padding:'7px',width:'20rem'}}
             />
           </div>
           
@@ -126,38 +127,38 @@ useEffect(() => {
         </div>
         {location.pathname == "/" && (
           <div className="navbarwrapper">
-            <span className="items">Filter By{"->"}</span>
-            <button className="items" onClick={() => handleNoFilter()}>
+            <span className="items">Filters</span>
+            <button className="animated-button" onClick={() => handleNoFilter()}>
               No Filter
             </button>
             <button
-              className="items"
+              className="animated-button"
               onClick={() => filterByCategory("mobiles")}
             >
               Mobiles
             </button>
             <button
-              className="items"
+              className="animated-button"
               onClick={() => filterByCategory("laptops")}
             >
               Laptops
             </button>
             <button
-              className="items"
+              className="animated-button"
               onClick={() => filterByCategory("tablets")}
             >
               Tablets
             </button>
-            <button className="items" onClick={() => filterByPrice("29000")}>
+            <button className="animated-button" onClick={() => filterByPrice("29000")}>
               {">="}29000
             </button>
-            <button className="items" onClick={() => filterByPrice("49000")}>
+            <button className="animated-button" onClick={() => filterByPrice("49000")}>
               {">="}49000
             </button>
-            <button className="items" onClick={() => filterByPrice("69000")}>
+            <button className="animated-button" onClick={() => filterByPrice("69000")}>
               {">="}69000
             </button>
-            <button className="items" onClick={() => filterByPrice("89000")}>
+            <button className="animated-button" onClick={() => filterByPrice("89000")}>
               {">="}89000
             </button>
           </div>
