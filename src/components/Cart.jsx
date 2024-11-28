@@ -59,6 +59,7 @@ function Cart() {
   return (
     <>
     Your Cart...
+    <Link to={'/'}><button class="ani-button">Back to Home Page</button></Link>
     <div className="container my-5">
         <div className="row">
           {

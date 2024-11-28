@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { items } from "../ProductData";
 import Product from "./Product";
 function PRoductDetails() {
@@ -14,6 +14,7 @@ function PRoductDetails() {
   }, [id,product.category]);
   return (
     <>
+     <Link to={'/'}><button class="ani-button">Back to Home Page</button></Link>
       <div className="container d-flex justify-content-center align-itmes-center ">
         <div className="img">
           <img src={product.imgSrc} alt="" className="" />
@@ -23,7 +24,7 @@ function PRoductDetails() {
         <h1 className="card-title">{product.title}</h1>
         <p className="card-text">{product.description}</p>
         <button className="btn btn-primary mx-3">{product.price} ₹</button>
-        <button className="btn btn-warning">Add To Cart</button>
+        {/* <button className="btn btn-warning">Add To Cart</button> */}
       </div>
       <div>
         <h1>Related Products</h1>

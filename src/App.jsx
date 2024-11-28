@@ -31,7 +31,7 @@ function App() {
       setcart(items);
     }
     catch(err){
-      alert('Unable to fetch your cart at the moment')
+      console.log(err);
     }
     finally{
       setloading(false);

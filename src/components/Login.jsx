@@ -26,6 +26,7 @@ function Login() {
       });
 
       if (!response.ok) {
+        setloading(false)
         throw new Error('Invalid Email or Password');
       }
 
@@ -62,7 +63,7 @@ function Login() {
             style={styles.input}
           />
         </div>
-        <Link to={'/signup'}>Don't have an account</Link>
+        <div style={{marginBottom:'5px',fontSize:'20px'}}> <Link to={'/signup'}>Don't have an account</Link></div>
         {error && <p style={styles.error}>{error}</p>}
         <button type="submit" style={styles.button}>Login</button>
       </form>
