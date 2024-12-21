@@ -23,7 +23,7 @@ function Cart() {
       setcart(carts);
     }
     catch(err){
-      alert("Unable to remove your product from the cart") 
+     console.log(err);
     }finally{
       setloading(false);
     }

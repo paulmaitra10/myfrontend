@@ -1,223 +1,146 @@
-import React, { useContext, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import Product from "./Product";
-// import { items } from "../ProductData";
-import { UserContext } from "../App";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { useAuth0 } from "@auth0/auth0-react";
-function Navbar({ setdata }) {
-  const navigate = useNavigate();
-  const [products, setproducts] = useState();
-  const { cart, setcart } = useContext(UserContext);
-  const fetchdata = async () => {
-    try {
-      const response = await fetch("https://jlt-xi.vercel.app/api/products/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+import React, { useState } from "react";
+import { Link,NavLink } from "react-router-dom";
+import { Menu, X, ShoppingCart, Search, User, FastForward } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { button } from "framer-motion/client";
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch products");
-      }
-
-      const data = await response.json();
-      setproducts(data);
-    } catch (err) {
-      setError(err.message);
-    }
-    // useEffect to call the fetchProducts function when the component mounts
-  };
-  useEffect(() => {
-    fetchdata();
-    // fetchCart();
-  }, []);
-
-  const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
-  const location = useLocation();
-  const token = localStorage.getItem("token");
-  const handleNoFilter = () => {
-    setdata(products);
-  };
-  const filterByCategory = (category) => {
-    if (category == "no") {
-      setdata(products);
-      return;
-    }
-    const element = products.filter((i) => i.category == category);
-    setdata(element);
-  };
-  const filterByPrice = (price) => {
-    const element = products.filter(
-      (i) => i.price > Number(price) || i.price == Number(price)
-    );
-    setdata(element);
-  };
-  const handleChange = (e) => {
-    const element = products.filter(
-      (i) =>
-        i.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
-        i.category.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    setdata(element);
-  };
+const Navbar = ({ cart }) => {
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/";
-  };
-  const fetchData = async () => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(
-          "https://jlt-xi.vercel.app/api/products/",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
-        const data = await response.json();
-        setdata(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    // useEffect to call the fetchProducts function when the component mounts
-  };
-  useEffect(() => {
-    fetchData;
-  }, []);
+    localStorage.removeItem("tok");
+    window.location.reload();
+  }
+  const [showLogoutButton, setshowLogoutButton] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [token,settoken]=useState(localStorage.getItem("tok"));
   return (
-    <>
-      <header className="sticky-top">
-        <div className="navbar">
-          <Link to={"/"} className="brand">
-            E-Cart
-          </Link>
-          <div className="searchbar">
-            <input
-              onChange={handleChange}
-              type="text"
-              placeholder="Search Products"
-              style={{ borderRadius: "50px", padding: "7px", width: "15rem" }}
-            />
-            <select
-              className="filter"
-              name="Filter by Products"
-              id=""
-              onChange={(e) => {
-                if (
-                  e.target.value == 29000 ||
-                  e.target.value == 49000 ||
-                  e.target.value == 69000 ||
-                  e.target.value == 89000
-                ) {
-                  filterByPrice(e.target.value);
-                } else {
-                  filterByCategory(e.target.value);
-                }
-              }}
-            >
-              <option value="no">No Filter</option>
-              <option value="mobiles" className="item">
-                Mobiles
-              </option>
-              <option value="laptops" className="item">
-                Laptops
-              </option>
-              <option value="tablets" className="item">
-                Tablets
-              </option>
-              <option value="29000" className="item">
-                {">"}29000
-              </option>
-              <option value="49000" className="item">
-                {">"}49000
-              </option>
-              <option value="69000" className="item">
-                {">"}69000
-              </option>
-              <option value="89000" className="item">
-                {">"}89000
-              </option>
-            </select>
+    <nav className="bg-white shadow-lg fixed w-full z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex items-center">
+            <Link to="/" className="flex-shrink-0 flex items-center">
+              <h1 className="text-2xl font-bold text-gray-800">TEChHub</h1>
+            </Link>
           </div>
-          {token ? (
-            <button className="btn btn-primary" onClick={handleLogout}>
-              Log Out
-            </button>
-          ) : (
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate("/login")}
-            >
-              Log In
-            </button>
-          )}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            <NavLink to="/" className={({ isActive }) =>
+                ` ${
+                  isActive
+                    ? "text-black font-bold text-lg"
+                    : "text-gray-600 hover:text-gray-900" 
+                }`
+              }>
+              Home
+            </NavLink>
+            <NavLink to="/products" className={({ isActive }) =>
+                ` ${
+                  isActive
+                    ? "text-black font-bold text-lg"
+                    : "text-gray-600 hover:text-gray-900" 
+                }`
+              }>
+              Products
+            </NavLink>
+            {/* <Link to="/categories" className="text-gray-600 hover:text-gray-900">Categories</Link> */}
+            <div className="flex items-center space-x-4">
+              {/* <Search className="w-6 h-6 text-gray-600 cursor-pointer hover:text-gray-900" /> */}
+              {token ? (
+                <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600" onClick={handleLogout}>
+                  Logout
+                </button>
+              ) : (
+                <Link to="/login">
+                  <User className="w-6 h-6 text-gray-600 cursor-pointer hover:text-gray-900" />
+                </Link>
+              )}
+              <div className="relative">
+                <Link to="/cart">
+                  <ShoppingCart className="w-6 h-6 text-gray-600 cursor-pointer hover:text-gray-900" />
+                </Link>
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                  {cart.length}
+                </span>
+              </div>
+            </div>
+          </div>
 
-          <Link to="/cart" className="cart">
-            <button type="button" className="btn btn-primary position-relative">
-              <FontAwesomeIcon icon={faCartShopping} />
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {cart.length}
-                <span className="visually-hidden">unread messages</span>
-              </span>
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 focus:outline-none"
+            >
+              {isOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
-          </Link>
-          {/* {location.pathname == "/" && (
-          <div className="navbarwrapper"> */}
+          </div>
         </div>
-        {/* <span className="items">Filters</span>
-            <button className="animated-button" onClick={() => handleNoFilter()}>
-              No Filter
-            </button>
-            <button
-              className="animated-button"
-              onClick={() => filterByCategory("mobiles")}
-            >
-              Mobiles
-            </button>
-            <button
-              className="animated-button"
-              onClick={() => filterByCategory("laptops")}
-            >
-              Laptops
-            </button>
-            <button
-              className="animated-button"
-              onClick={() => filterByCategory("tablets")}
-            >
-              Tablets
-            </button>
-            <button className="animated-button" onClick={() => filterByPrice("29000")}>
-              {">="}29000
-            </button>
-            <button className="animated-button" onClick={() => filterByPrice("49000")}>
-              {">="}49000
-            </button>
-            <button className="animated-button" onClick={() => filterByPrice("69000")}>
-              {">="}69000
-            </button>
-            <button className="animated-button" onClick={() => filterByPrice("89000")}>
-              {">="}89000
-            </button> */}
+      </div>
 
-        {/* </div> */}
-        {/* )} */}
-      </header>
-    </>
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden"
+          >
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                `block px-3 py-2${
+                  isActive
+                    ? "text-black font-bold text-lg"
+                    : "text-gray-600 hover:text-gray-900" 
+                }`
+              }
+              >
+                Home
+              </NavLink>
+               <NavLink
+                to="/products"
+                className={({ isActive }) =>
+                  ` block px-3 py-2      ${
+                    isActive
+                      ? "text-black font-bold text-lg"
+                      : "text-gray-600 hover:text-gray-900" 
+                  }`
+                }
+              >
+                Products
+              </NavLink>
+              {/* <Link to="/categories" className="block px-3 py-2 text-gray-600 hover:text-gray-900">Categories</Link> */}
+              <div className="flex items-center space-x-4 px-3 py-2">
+                {/* <Search className="w-6 h-6 text-gray-600" /> */}
+                {token ? (
+                  <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600" onClick={handleLogout}>
+                    Logout
+                  </button>
+                ) : (
+                  <Link to="/login">
+                    <User className="w-6 h-6 text-gray-600 cursor-pointer hover:text-gray-900" />
+                  </Link>
+                )}
+                <div className="relative">
+                  <Link to={"/cart"}>
+                    <ShoppingCart className="w-6 h-6 text-gray-600" />
+                  </Link>
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                    {cart.length}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   );
-}
+};
 
 export default Navbar;

@@ -1,12 +1,9 @@
-import React from 'react';
-import './Loader.css'; // optional for styling
+import React from 'react'
 
-const Loader = () => {
+export default function Loader() {
   return (
-    <div className="loader">
-      <div className="spinner"></div>
-    </div>
-  );
-};
-
-export default Loader;
+    <div className="flex items-center justify-center h-screen">
+    <div className="loader"></div>
+  </div>  
+  )
+}
