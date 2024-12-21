@@ -4,7 +4,6 @@ import Product from './Product';
 import { items } from '../ProductData';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
-
 function Cart() {
   const [loading, setloading] = useState(false)
   const {cart,setcart} =useContext(UserContext); 

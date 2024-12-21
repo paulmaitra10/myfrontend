@@ -84,7 +84,6 @@ function Navbar({ setdata }) {
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
-
         const data = await response.json();
         setdata(data);
       } catch (err) {

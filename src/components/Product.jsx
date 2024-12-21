@@ -7,8 +7,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { faL } from "@fortawesome/free-solid-svg-icons";
 import Loader from "./Loader.jsx";
-
-
 const Product=({items})=> {
   const navigate=useNavigate();
   const [loading, setloading] = useState(false);
