@@ -20,7 +20,7 @@ export function Signup() {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/api/users/register", {
+      const response = await fetch("https://jlt-xi.vercel.app/api/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

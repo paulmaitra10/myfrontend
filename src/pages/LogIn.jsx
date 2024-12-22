@@ -12,7 +12,7 @@ export function Login() {
     e.preventDefault();
     setloading(true);
     try {
-      const response = await fetch('http://localhost:3000/api/users/login', {
+      const response = await fetch('https://jlt-xi.vercel.app/api/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

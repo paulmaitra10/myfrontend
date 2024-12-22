@@ -11,7 +11,7 @@ export function Cart() {
     setloading(true);
     try {
       const token = localStorage.getItem("tok");
-      const response = await fetch("http://localhost:3000/api/orders/remove", {
+      const response = await fetch("https://jlt-xi.vercel.app/api/orders/remove", {
         method: "DELETE",
         body: JSON.stringify({ productId: e.target.value }),
         headers: {

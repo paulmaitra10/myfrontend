@@ -20,7 +20,7 @@ function App() {
   const fetchCart=async ()=>{
    if(token){ try{
     setloading(true)
-      const response=await fetch('http://localhost:3000/api/orders/cart',{
+      const response=await fetch('https://jlt-xi.vercel.app/api/orders/cart',{
         method:'GET',
         headers:{
           'Content-Type':'application/json',

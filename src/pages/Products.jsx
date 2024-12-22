@@ -11,7 +11,7 @@ export function Products() {
   const [products, setproducts] = useState([]);
   const [filteredProducts, setfilteredProducts] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:3000/api/products/')
+    fetch('https://jlt-xi.vercel.app/api/products/')
       .then((res) => res.json())
       .then((data) => {setproducts(data)
         setfilteredProducts(data);
