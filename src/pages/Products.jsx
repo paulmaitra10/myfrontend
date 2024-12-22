@@ -7,10 +7,11 @@ import { ToastContainer,toast} from 'react-toastify';
 import ProductCard from '../components/ProductCard';
 import { userContext } from '../App';
 export function Products() {
-  const [loading, setloading] = useState(true);
+  const [loading, setloading] = useState(false);
   const [products, setproducts] = useState([]);
   const [filteredProducts, setfilteredProducts] = useState([]);
   useEffect(() => {
+    setloading(true);
     fetch('https://jlt-xi.vercel.app/api/products/')
       .then((res) => res.json())
       .then((data) => {setproducts(data)
