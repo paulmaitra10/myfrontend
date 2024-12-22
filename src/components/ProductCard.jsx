@@ -29,7 +29,7 @@ const ProductCard = ({ product }) => {
       setcart([...cart,result]);
       toast('Item is added to cart', {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -68,9 +68,10 @@ const ProductCard = ({ product }) => {
           <span className="text-xl font-bold text-gray-900">${product.price}</span>
          { <motion.button
          value={product.id}
+         disabled={loading}
          onClick={AddtoCart}
             whileTap={{ scale: 0.95 }}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Add to Cart
           </motion.button>}

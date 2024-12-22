@@ -4,6 +4,7 @@ import { userContext } from "../App.jsx";
 import { Link } from "react-router-dom";
 import { h1 } from "framer-motion/client";
 import Loader from "../components/Loader.jsx";
+import { toast, ToastContainer } from "react-toastify";
 export function Cart() {
   const [loading, setloading] = useState(false);
   const { cart, setcart } = useContext(userContext);
@@ -22,6 +23,18 @@ export function Cart() {
       const carts = await response.json();
       console.log(carts);
       setcart(carts);
+      toast('Item is removed from Cart', {
+              position: "top-right",
+              autoClose: 1000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              });
+              console.log('removed');
+              setloading(false);
     } catch (err) {
       alert("Unable to remove your product from the cart");
     } finally {
@@ -62,6 +75,18 @@ export function Cart() {
     );
   }
   return (
+    <>
+    <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"/>
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Your Products</h1>
@@ -100,7 +125,7 @@ export function Cart() {
                           onClick={handleRemove}
                           disabled={loading}
                           whileTap={{ scale: 0.95 }}
-                          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           Remove
                         </motion.button>
@@ -123,5 +148,6 @@ export function Cart() {
         </div>
       </div>
     </div>
+    </>
   );
 }

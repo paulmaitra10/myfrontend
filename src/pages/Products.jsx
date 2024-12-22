@@ -10,16 +10,33 @@ export function Products() {
   const [loading, setloading] = useState(false);
   const [products, setproducts] = useState([]);
   const [filteredProducts, setfilteredProducts] = useState([]);
-  useEffect(() => {
-    setloading(true);
-    fetch('https://jlt-xi.vercel.app/api/products/')
-      .then((res) => res.json())
-      .then((data) => {setproducts(data)
-        setfilteredProducts(data);
-      })
-      .finally(setloading(false))
-      .catch((error) => console.error('Error fetching products:', error));
-  }, []);
+  const fetchData=async ()=>{
+    try {
+      setloading(true);
+      const response = await fetch('https://jlt-xi.vercel.app/api/products/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch products');
+      }
+      const data = await response.json();
+      setproducts(data);
+      setfilteredProducts(data);
+    } catch (err) {
+      // setError(err.message);
+      console.log(err);
+    }
+    finally{
+      setloading(false)
+    }
+  }
+    useEffect(() => {
+      fetchData();
+    }, [])
+    
   const token=localStorage.getItem("tok");
  console.log(loading);
  
@@ -33,13 +50,8 @@ export function Products() {
         i.category.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setfilteredProducts(element);
-  };
-if(loading)
-  {
-    console.log('rrr');
-    return <Loader/>
   }
-else
+  if(loading) return <Loader/>
  { return (
     <> 
      <ToastContainer
@@ -97,5 +109,5 @@ else
       </div>
     </div>
     </>
-  );}
+  )}
 }
