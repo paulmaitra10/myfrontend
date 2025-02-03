@@ -10,6 +10,7 @@ import { Signup } from './pages/Signup';
 import { Login } from './pages/LogIn';
 import { Cart } from './pages/Cart';
 import ProductDetail from './pages/ProductDetail';
+import { Footer } from './Footer';
 const userContext = createContext();
 function App() {
   const [loading, setloading] = useState(false);
@@ -56,12 +57,10 @@ function App() {
         const data = await response.json();
         setdata(data);
       } catch (err) {
-        // setError(err.message);
       }
       finally{
         setloading(false);
       }
-    // useEffect to call the fetchProducts function when the component mounts
   }
   useEffect(() => {
     // fetchData();
@@ -83,6 +82,7 @@ function App() {
             <Route path='/product/:id' element={<ProductDetail/>} />
           </Routes>
         </div>
+        <Footer/>
       </div>
     </Router>
     </userContext.Provider>

@@ -8,6 +8,8 @@ import { toast, ToastContainer } from "react-toastify";
 export function Cart() {
   const [loading, setloading] = useState(false);
   const { cart, setcart } = useContext(userContext);
+  console.log(cart);
+  
   const handleRemove = async (e) => {
     setloading(true);
     try {
@@ -95,6 +97,7 @@ export function Cart() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {cart.map((product) => {
+            
             return (
               <div>
                 <motion.div

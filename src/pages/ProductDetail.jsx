@@ -123,8 +123,10 @@ function ProductDetail() {
 
               <div className="flex space-x-4">
                 <button
-                  className="flex-1 bg-black text-white py-3 px-6 rounded-lg hover:bg-gray-800 transform hover:scale-105 transition-all duration-200"
+                  className="flex-1 bg-black text-white py-3 px-6 rounded-lg hover:bg-gray-800 transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                   onClick={AddtoCart}
+                  value={product.id}
+                  disabled={laoding}
                 >
                   Add to Cart
                 </button>
