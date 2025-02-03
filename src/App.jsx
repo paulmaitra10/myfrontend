@@ -82,8 +82,9 @@ function App() {
             <Route path='/product/:id' element={<ProductDetail/>} />
           </Routes>
         </div>
-        <Footer/>
+        
       </div>
+      <Footer/>
     </Router>
     </userContext.Provider>
   );
