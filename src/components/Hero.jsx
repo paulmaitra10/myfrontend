@@ -20,7 +20,7 @@ const Hero = () => {
                 <span className="block text-blue-600">Tech Trends</span>
               </h1>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                Shop the most stylish and trendy collection of mobiles,laptops,etc. Power Up Your World – Shop the Future of Tech Today!
+                Shop the most stylish and trendy collection of laptops,mobiles etc. Power Up Your World – Shop the Future of Tech Today!
               </p>
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <motion.div
