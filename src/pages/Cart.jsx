@@ -65,7 +65,7 @@ export function Cart() {
   if (cart.length == 0) {
     return (
       <>
-        <div className="flex flex-col items-center justify-center  ">
+        <div className="flex flex-col items-center justify-center mt-16">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
             Your Cart is Empty
           </h1>
