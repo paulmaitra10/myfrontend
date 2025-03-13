@@ -17,7 +17,7 @@ function App() {
   const [cart, setcart] = useState([]);
   const [data, setdata] = useState([]);
   const token=localStorage.getItem("tok");
- 
+  console.log(token);
   const fetchCart=async ()=>{
    if(token){ try{
     setloading(true)
