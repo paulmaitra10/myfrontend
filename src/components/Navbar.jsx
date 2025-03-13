@@ -1,139 +1,147 @@
-import React, { useContext, useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { userContext } from "../App.jsx";
-import { Link } from "react-router-dom";
-import Loader from "../components/Loader.jsx";
-import { toast, ToastContainer } from "react-toastify";
+import React, { useState } from "react";
+import { Link,NavLink } from "react-router-dom";
+import { Menu, X, ShoppingCart, Search, User, FastForward } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { button } from "framer-motion/client";
 
-export function Cart() {
-  const [loading, setloading] = useState(false);
-  const { cart, setcart } = useContext(userContext) || {}; // ✅ Null check on context
-
-  console.log(cart);
-
-  const handleRemove = async (e) => {
-    if (!cart || !setcart) return; // ✅ Ensure `cart` & `setcart` exist
-
-    setloading(true);
-    try {
-      const token = localStorage.getItem("tok");
-      if (!token) {
-        toast.error("User not authenticated");
-        return;
-      }
-
-      const response = await fetch("https://jlt-xi.vercel.app/api/orders/remove", {
-        method: "DELETE",
-        body: JSON.stringify({ productId: e.target.value }),
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) throw new Error("Failed to remove item");
-
-      const carts = await response.json();
-      setcart(carts);
-      toast.success("Item removed from Cart");
-    } catch (err) {
-      toast.error("Unable to remove the product from the cart");
-    } finally {
-      setloading(false);
-    }
-  };
-
-  const handleClearCart = async () => {
-    if (!cart || !setcart) return; // ✅ Null check
-
-    setcart([]);
-    try {
-      const token = localStorage.getItem("tok");
-      if (!token) {
-        toast.error("User not authenticated");
-        return;
-      }
-
-      const response = await fetch("https://jlt-xi.vercel.app/api/orders/totalremove", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) throw new Error("Failed to clear cart");
-
-      toast.success("Cart cleared successfully");
-    } catch (err) {
-      toast.error("Unable to clear your Cart at the moment");
-    }
-  };
-
-  if (!cart || cart.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center mt-16">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">Your Cart is Empty</h1>
-        <Link
-          to="/products"
-          className="px-6 py-2 bg-blue-600 text-white font-medium text-sm rounded-lg shadow hover:bg-blue-700"
-        >
-          Continue Shopping
-        </Link>
-      </div>
-    );
+const Navbar = ({ cart }) => {
+  const handleLogout = () => {
+    localStorage.removeItem("tok");
+    window.location.reload();
   }
-
+  const [showLogoutButton, setshowLogoutButton] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [token,settoken]=useState(localStorage.getItem("tok"));
   return (
-    <>
-      <ToastContainer position="top-right" autoClose={1000} theme="dark" />
-      <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Your Products</h1>
-          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {cart.map((product) => {
-              if (!product) return null; // ✅ Prevents crashes if product is null
+    <nav className="bg-white shadow-lg fixed w-full z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex items-center">
+            <Link to="/" className="flex-shrink-0 flex items-center">
+              <h1 className="text-2xl font-bold text-gray-800">TechHub</h1>
+            </Link>
+          </div>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            <NavLink to="/" className={({ isActive }) =>
+                ` ${
+                  isActive
+                    ? "text-black font-bold text-lg"
+                    : "text-gray-600 hover:text-gray-900" 
+                }`
+              }>
+              Home
+            </NavLink>
+            <NavLink to="/products" className={({ isActive }) =>
+                ` ${
+                  isActive
+                    ? "text-black font-bold text-lg"
+                    : "text-gray-600 hover:text-gray-900" 
+                }`
+              }>
+              Products
+            </NavLink>
+            {/* <Link to="/categories" className="text-gray-600 hover:text-gray-900">Categories</Link> */}
+            <div className="flex items-center space-x-4">
+              {/* <Search className="w-6 h-6 text-gray-600 cursor-pointer hover:text-gray-900" /> */}
+              {token ? (
+                <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600" onClick={handleLogout}>
+                  Logout
+                </button>
+              ) : (
+                <Link to="/login">
+                  <User className="w-6 h-6 text-gray-600 cursor-pointer hover:text-gray-900" />
+                </Link>
+              )}
+              <div className="relative">
+                <Link to="/cart">
+                  <ShoppingCart className="w-6 h-6 text-gray-600 cursor-pointer hover:text-gray-900" />
+                </Link>
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                  {cart.length}
+                </span>
+              </div>
+            </div>
+          </div>
 
-              return (
-                <motion.div key={product.id} whileHover={{ y: -5 }} className="bg-white rounded-lg shadow-md overflow-hidden">
-                  <div className="relative">
-                    {product.imgSrc ? (
-                      <img src={product.imgSrc} alt={product.name || "Product"} className="w-full h-64 object-cover" />
-                    ) : (
-                      <div className="w-full h-64 flex items-center justify-center bg-gray-200">No Image</div>
-                    )}
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold text-gray-800">{product.title || "No Title"}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{product.description || "No description available"}</p>
-                    <div className="flex justify-between items-center mt-4">
-                      <span className="text-xl font-bold text-gray-900">${product.price ?? "N/A"}</span>
-                      <motion.button
-                        value={product.id}
-                        onClick={handleRemove}
-                        disabled={loading}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        Remove
-                      </motion.button>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-          <div className="flex justify-center mt-8">
-            <motion.button
-              onClick={handleClearCart}
-              whileTap={{ scale: 0.95 }}
-              className="bg-yellow-500 text-white px-5 py-3 rounded-md hover:bg-yellow-400"
+          {/* Mobile menu button */}
+          <div  className="md:hidden flex items-center">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 focus:outline-none"
             >
-              Clear Cart
-            </motion.button>
+              {isOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
           </div>
         </div>
       </div>
-    </>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden"
+            onMouseLeave={()=>setIsOpen(false)}
+          >
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                `block px-3 py-2${
+                  isActive
+                    ? "text-black font-bold text-lg"
+                    : "text-gray-600 hover:text-gray-900" 
+                }`
+              }
+              >
+                Home
+              </NavLink>
+               <NavLink
+                to="/products"
+                className={({ isActive }) =>
+                  ` block px-3 py-2      ${
+                    isActive
+                      ? "text-black font-bold text-lg"
+                      : "text-gray-600 hover:text-gray-900" 
+                  }`
+                }
+              >
+                Products
+              </NavLink>
+              {/* <Link to="/categories" className="block px-3 py-2 text-gray-600 hover:text-gray-900">Categories</Link> */}
+              <div className="flex items-center space-x-4 px-3 py-2">
+                {/* <Search className="w-6 h-6 text-gray-600" /> */}
+                {token ? (
+                  <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600" onClick={handleLogout}>
+                    Logout
+                  </button>
+                ) : (
+                  <Link to="/login">
+                    <User className="w-6 h-6 text-gray-600 cursor-pointer hover:text-gray-900" />
+                  </Link>
+                )}
+                <div className="relative">
+                  <Link to={"/cart"}>
+                    <ShoppingCart className="w-6 h-6 text-gray-600" />
+                  </Link>
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                    {cart.length}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   );
-}
+};
+
+export default Navbar;
