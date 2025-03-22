@@ -76,19 +76,6 @@ export function Cart() {
 
   if (!cart || cart.length === 0) {
     return (
-<<<<<<< HEAD
-      <>
-        <div className="flex flex-col items-center justify-center mt-16">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            Your Cart is Empty
-          </h1>
-          <Link to={'/products'} className="px-6 py-2 bg-blue-600 text-white font-medium text-sm rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-            Continue Shopping
-          </Link>
-        </div>
-        <ScrollToTop/>
-      </>
-=======
       <div className="flex flex-col items-center justify-center mt-16">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">Your Cart is Empty</h1>
         <Link
@@ -98,7 +85,6 @@ export function Cart() {
           Continue Shopping
         </Link>
       </div>
->>>>>>> fe3288335c5252e48d6f03381e3ea4742c00c5ab
     );
   }
 
@@ -152,11 +138,6 @@ export function Cart() {
           </div>
         </div>
       </div>
-<<<<<<< HEAD
-      <ScrollToTop/>
-    </div>
-=======
->>>>>>> fe3288335c5252e48d6f03381e3ea4742c00c5ab
     </>
   );
 }

@@ -18,7 +18,6 @@ function App() {
   const [cart, setcart] = useState([]);
   const [data, setdata] = useState([]);
   const token=localStorage.getItem("tok");
-  console.log(token);
   const fetchCart=async ()=>{
    if(token){ try{
     setloading(true)
@@ -62,28 +61,6 @@ function App() {
         setloading(false);
       }
     }
-  }
-  const fetchData = async () => {
-    try {
-      setloading(true);
-      const response = await fetch('https://jlt-xi.vercel.app/api/products/', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (!response.ok) {
-        throw new Error('Failed to fetch products');
-      }
-
-      const data = await response.json();
-      setdata(data);
-    } catch (err) {
-    }
-    finally {
-      setloading(false);
-    }
-  }
   useEffect(() => {
     // fetchData();
     fetchCart();
@@ -111,6 +88,6 @@ function App() {
       </Router>
     </userContext.Provider>
   );
-
+}
 export default App;
 export {userContext}
