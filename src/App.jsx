@@ -17,10 +17,30 @@ function App() {
   const [loading, setloading] = useState(false);
   const [cart, setcart] = useState([]);
   const [data, setdata] = useState([]);
-  const token = localStorage.getItem("tok");
-
-  const fetchCart = async () => {
-    if (token) {
+  const token=localStorage.getItem("tok");
+  console.log(token);
+  const fetchCart=async ()=>{
+   if(token){ try{
+    setloading(true)
+      const response=await fetch('https://jlt-xi.vercel.app/api/orders/cart',{
+        method:'GET',
+        headers:{
+          'Content-Type':'application/json',
+           'authorization': `Bearer ${token}`,
+        },
+      })
+      const items=await response.json();
+      setcart(items);
+    }
+    catch(err){
+      console.log(err);
+    }
+    finally{
+      setloading(false);
+    }
+  }
+  }
+  const fetchData=async ()=>{
       try {
         setloading(true)
         const response = await fetch('https://jlt-xi.vercel.app/api/orders/cart', {
@@ -91,6 +111,6 @@ function App() {
       </Router>
     </userContext.Provider>
   );
-}
+
 export default App;
-export { userContext };
+export {userContext}
