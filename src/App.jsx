@@ -11,7 +11,7 @@ import { Login } from './pages/LogIn';
 import { Cart } from './pages/Cart';
 import ProductDetail from './pages/ProductDetail';
 import { Footer } from './Footer';
-import { Fleet } from './components/fleet';
+import { Fleet } from './components/Fleet';
 const userContext = createContext();
 function App() {
   const [loading, setloading] = useState(false);
