@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { ToastContainer,toast} from 'react-toastify';
 import ProductCard from '../components/ProductCard';
 import { userContext } from '../App';
+import ScrollToTop from '../components/ScrollToTop';
 export function Products() {
   const [loading, setloading] = useState(false);
   const [products, setproducts] = useState([]);
@@ -107,6 +108,7 @@ export function Products() {
           ))}
         </motion.div>
       </div>
+      <ScrollToTop/>
     </div>
     </>
   )}

@@ -3,6 +3,7 @@ import Hero from '../components/Hero';
 import ProductCard from '../components/ProductCard';
 import { motion } from 'framer-motion';
 import { ToastContainer,toast } from 'react-toastify';
+import ScrollToTop from '../components/ScrollToTop';
 
 const featuredProducts = [
   {
@@ -105,6 +106,7 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
+      <ScrollToTop/>
     </div>
   );
 };

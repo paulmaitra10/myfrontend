@@ -65,7 +65,7 @@ const Navbar = ({ cart }) => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          <div  className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 focus:outline-none"
@@ -88,6 +88,7 @@ const Navbar = ({ cart }) => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden"
+            onMouseLeave={()=>setIsOpen(false)}
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               <NavLink

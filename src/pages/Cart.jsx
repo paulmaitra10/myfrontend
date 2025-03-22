@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { h1 } from "framer-motion/client";
 import Loader from "../components/Loader.jsx";
 import { toast, ToastContainer } from "react-toastify";
+import ScrollToTop from "../components/ScrollToTop.jsx";
 export function Cart() {
   const [loading, setloading] = useState(false);
   const { cart, setcart } = useContext(userContext);
@@ -73,6 +74,7 @@ export function Cart() {
             Continue Shopping
           </Link>
         </div>
+        <ScrollToTop/>
       </>
     );
   }
@@ -150,6 +152,7 @@ export function Cart() {
           </motion.button>
         </div>
       </div>
+      <ScrollToTop/>
     </div>
     </>
   );
