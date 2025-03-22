@@ -4,11 +4,6 @@ import { userContext } from "../App.jsx";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader.jsx";
 import { toast, ToastContainer } from "react-toastify";
-<<<<<<< HEAD
-import ScrollToTop from "../components/ScrollToTop.jsx";
-=======
-
->>>>>>> fe3288335c5252e48d6f03381e3ea4742c00c5ab
 export function Cart() {
   const [loading, setloading] = useState(false);
   const { cart, setcart } = useContext(userContext) || {}; // ✅ Null check on context
