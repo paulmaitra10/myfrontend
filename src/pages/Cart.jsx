@@ -8,7 +8,7 @@ export function Cart() {
   const [loading, setloading] = useState(false);
   const { cart, setcart } = useContext(userContext) || {}; // ✅ Null check on context
 
-  console.log(cart);
+  // console.log(cart);
 
   const handleRemove = async (e) => {
     if (!cart || !setcart) return; // ✅ Ensure `cart` & `setcart` exist
@@ -33,6 +33,7 @@ export function Cart() {
       if (!response.ok) throw new Error("Failed to remove item");
 
       const carts = await response.json();
+      console.log(carts);
       setcart(carts);
       toast.success("Item removed from Cart");
     } catch (err) {
@@ -90,11 +91,11 @@ export function Cart() {
         <div className="max-w-7xl mx-auto">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Your Products</h1>
           <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {cart.map((product) => {
+            {cart.map((product,index) => {
               if (!product) return null; // ✅ Prevents crashes if product is null
 
               return (
-                <motion.div key={product.id} whileHover={{ y: -5 }} className="bg-white rounded-lg shadow-md overflow-hidden">
+                <motion.div key={index} whileHover={{ y: -5 }} className="bg-white rounded-lg shadow-md overflow-hidden">
                   <div className="relative">
                     {product.imgSrc ? (
                       <img src={product.imgSrc} alt={product.name || "Product"} className="w-full h-64 object-cover" />

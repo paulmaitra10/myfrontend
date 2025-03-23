@@ -16,7 +16,7 @@ const ProductCard = ({ product }) => {
     { 
       try{
         setloading(true);
-        console.log(token);     
+        // console.log(token);     
       const response=await fetch('https://jlt-xi.vercel.app/api/orders/',{
         method:'POST',
         body:JSON.stringify({productId:e.target.value}),
@@ -37,7 +37,7 @@ const ProductCard = ({ product }) => {
         progress: undefined,
         theme: "light",
         });
-        console.log('added');
+        // console.log('added');
         setloading(false);
     }
     catch(err){
