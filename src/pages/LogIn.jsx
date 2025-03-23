@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Lock} from "lucide-react";
-import { button } from "framer-motion/client";
+import { button, div } from "framer-motion/client";
 
 export function Login() {
   const [loading, setloading] = useState(false);
@@ -32,6 +32,7 @@ export function Login() {
       setloading(false);
       window.location.href="/"
     } catch (err) {
+      // console.log(err.message);
       setError(err.message);
     }
   };
@@ -73,6 +74,7 @@ export function Login() {
               </label>
             </div>
 
+            {error && <div className="text-red-500">{error}</div>}
             
 
               {loading ? (
