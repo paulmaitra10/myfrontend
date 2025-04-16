@@ -7,15 +7,20 @@ import { ToastContainer, toast } from 'react-toastify';
 import ProductCard from '../components/ProductCard';
 import { userContext } from '../App';
 import ScrollToTop from '../components/ScrollToTop';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from '../redux/actions/productAction';
 
 export function Products() {
   const [loading, setloading] = useState(false);
-  const [products, setproducts] = useState([]);
-  const [filteredProducts, setfilteredProducts] = useState([]);
+  const user = JSON.parse(localStorage.getItem('tok'));
+  // const [products, setproducts] = useState(user?.products || []);
+  const products = useSelector(state => state.product.products);
+  const [filteredProducts, setfilteredProducts] = useState(products || []);
+  const dispatch = useDispatch();
   const fetchData = async () => {
     try {
       setloading(true);
-      const response = await fetch('https://jlt-xi.vercel.app/api/products/', {
+      const response = await fetch('http://localhost:5000/api/products/', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -35,11 +40,10 @@ export function Products() {
       setloading(false)
     }
   }
-  useEffect(() => {
-    fetchData();
-  }, [])
 
-  const token = localStorage.getItem("tok");
+
+
+  // const token = localStorage.getItem("tok");
   //  console.log(loading);
 
   const { cart, setcart } = useContext(userContext);
@@ -106,8 +110,8 @@ export function Products() {
             >
               {
                 filteredProducts.map((product, index) => {
-                  console.log(index);
-                
+                  // console.log(index);
+
                   return (
                     <ProductCard key={index} product={product} />
                   )

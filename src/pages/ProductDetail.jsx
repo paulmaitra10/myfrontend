@@ -3,6 +3,8 @@ import { Star, Truck, Shield, Heart } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { userContext } from "../App";
 import { toast,ToastContainer} from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/actions/cartAction";
 
 function ProductDetail() {
   const [laoding, setlaoding] = useState(false);
@@ -14,7 +16,7 @@ function ProductDetail() {
   const getProductDetail = async () => {
     try {
       setlaoding(true);
-      const response = await fetch("https://jlt-xi.vercel.app/api/products/");
+      const response = await fetch("http://localhost:5000/api/products/");
       const items = await response.json();
       setdata(items);
       const filteredProducts = items.filter((i) => i.id === parseInt(id))
@@ -27,20 +29,12 @@ function ProductDetail() {
   useEffect(() => {
     getProductDetail();
   }, [])
+  const dispatch=useDispatch();
   const AddtoCart = async (e) => {
     if (token) {
       try {
         setlaoding(true);
-        const response = await fetch("https://jlt-xi.vercel.app/api/orders/", {
-          method: "POST",
-          body: JSON.stringify({ productId: e.target.value }),
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${token}`, // Add JWT token to the Authorization header
-          },
-        });
-        const result = await response.json()
-        setcart([...cart, result]);
+        dispatch(addToCart(e.target.value));
         toast("Item is added to cart", {
           position: "top-right",
           autoClose: 5000,

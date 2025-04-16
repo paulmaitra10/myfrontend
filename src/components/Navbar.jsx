@@ -3,12 +3,15 @@ import { Link,NavLink } from "react-router-dom";
 import { Menu, X, ShoppingCart, Search, User, FastForward } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { button } from "framer-motion/client";
+import { useSelector } from "react-redux";
 
-const Navbar = ({ cart }) => {
+const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("tok");
     window.location.reload();
   }
+  const cart =useSelector((state) => state.cart.cartItems);
+  // console.log(cart);
   const [showLogoutButton, setshowLogoutButton] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [token,settoken]=useState(localStorage.getItem("tok"));

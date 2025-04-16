@@ -4,37 +4,16 @@ import { userContext } from "../App.jsx";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader.jsx";
 import { toast, ToastContainer } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, clearCart, removeFromCart } from "../redux/actions/cartAction.js";
 export function Cart() {
   const [loading, setloading] = useState(false);
-  const { cart, setcart } = useContext(userContext) || {}; // ✅ Null check on context
-
-  // console.log(cart);
-
-  const handleRemove = async (e) => {
-    if (!cart || !setcart) return; // ✅ Ensure `cart` & `setcart` exist
-
+  const cart = useSelector((state)=>state.cart.cartItems);
+  const dispatch=useDispatch();
+  const handleRemove = async (productId) => {
     setloading(true);
     try {
-      const token = localStorage.getItem("tok");
-      if (!token) {
-        toast.error("User not authenticated");
-        return;
-      }
-
-      const response = await fetch("https://jlt-xi.vercel.app/api/orders/remove", {
-        method: "DELETE",
-        body: JSON.stringify({ productId: e.target.value }),
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) throw new Error("Failed to remove item");
-
-      const carts = await response.json();
-      console.log(carts);
-      setcart(carts);
+      await dispatch(removeFromCart(productId));
       toast.success("Item removed from Cart");
     } catch (err) {
       toast.error("Unable to remove the product from the cart");
@@ -42,28 +21,15 @@ export function Cart() {
       setloading(false);
     }
   };
-
   const handleClearCart = async () => {
-    if (!cart || !setcart) return; // ✅ Null check
-
-    setcart([]);
+    // if (!cart) return; // ✅ Null check
     try {
       const token = localStorage.getItem("tok");
       if (!token) {
         toast.error("User not authenticated");
         return;
       }
-
-      const response = await fetch("https://jlt-xi.vercel.app/api/orders/totalremove", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) throw new Error("Failed to clear cart");
-
+      dispatch(clearCart());
       toast.success("Cart cleared successfully");
     } catch (err) {
       toast.error("Unable to clear your Cart at the moment");
@@ -110,7 +76,7 @@ export function Cart() {
                       <span className="text-xl font-bold text-gray-900">${product.price ?? "N/A"}</span>
                       <motion.button
                         value={product.id}
-                        onClick={handleRemove}
+                        onClick={()=>handleRemove(product.id)}
                         disabled={loading}
                         whileTap={{ scale: 0.95 }}
                         className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"

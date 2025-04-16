@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Mail, Lock,PersonStanding } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signupUser } from "../redux/actions/login_signup_Action";
 export function Signup() {
   const [loading, setloading] = useState(false);
   const [success, setSuccess] = useState("");
@@ -8,6 +10,7 @@ export function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const dispatch=useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     setloading(true);
@@ -18,29 +21,8 @@ export function Signup() {
       email,
       password,
     };
-
-    try {
-      const response = await fetch("https://jlt-xi.vercel.app/api/users/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
-      if (!response.ok) {
-        setloading(false)
-        throw new Error('Invalid Email or Password');
-      }
-
-      const data = await response.json().
-      then(setloading(false));
-      const token=await data.token;
-      localStorage.setItem("tok",token);
-      window.location.href="/"
-      
-    } catch (error) {
-      setError("An error occurred. Please try again.");
-    }
+    dispatch(signupUser(userData));
+    setloading(false);
   };
 
   return (

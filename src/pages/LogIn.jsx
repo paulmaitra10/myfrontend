@@ -2,39 +2,19 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Lock} from "lucide-react";
 import { button, div } from "framer-motion/client";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../redux/actions/login_signup_Action";
 
 export function Login() {
   const [loading, setloading] = useState(false);
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const dispatch=useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     setloading(true);
-    try {
-      const response = await fetch('https://jlt-xi.vercel.app/api/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-
-      if (!response.ok) {
-        setloading(false)
-        throw new Error('Invalid Email or Password');
-      }      
-      const data = await response.json();
-      localStorage.setItem("tok",data.token)
-      setloading(false);
-      window.location.href="/"
-    } catch (err) {
-      // console.log(err.message);
-      setError(err.message);
-    }
+   dispatch(loginUser(email,password));
   };
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
@@ -55,6 +35,7 @@ export function Login() {
                 required
                 onChange={(e)=>setemail(e.target.value)}
               />
+
               <label className="absolute left-10 -top-3.5 text-sm text-gray-600 transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-500">
                 {'Email Address'}
               </label>

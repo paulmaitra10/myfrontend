@@ -12,59 +12,31 @@ import { Cart } from './pages/Cart';
 import ProductDetail from './pages/ProductDetail';
 import { Footer } from './Footer';
 import { Fleet } from './components/Fleet';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from './redux/actions/productAction';
+import { isLoading } from './redux/actions/loaderAction';
+import Loader from './components/Loader';
 const userContext = createContext();
 function App() {
-  const [loading, setloading] = useState(false);
+  // const [loading, setloading] = useState(false);
   const [cart, setcart] = useState([]);
   const [data, setdata] = useState([]);
   const token=localStorage.getItem("tok");
-  const fetchCart=async ()=>{
-   if(token){ try{
-    setloading(true)
-      const response=await fetch('https://jlt-xi.vercel.app/api/orders/cart',{
-        method:'GET',
-        headers:{
-          'Content-Type':'application/json',
-           'authorization': `Bearer ${token}`,
-        },
-      })
-      const items=await response.json();
-      setcart(items);
-    }
-    catch(err){
-      console.log(err);
-    }
-    finally{
-      setloading(false);
-    }
-  }
-  }
-  const fetchData=async ()=>{
-      try {
-        setloading(true)
-        const response = await fetch('https://jlt-xi.vercel.app/api/orders/cart', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'authorization': `Bearer ${token}`,
-          },
-        })
-        const items = await response.json();
-
-
-        setcart(items);
-      }
-      catch (err) {
-        console.log(err);
-      }
-      finally {
-        setloading(false);
-      }
-    }
+  const loading=useSelector((state) => state.loader.loading);
+  const dispatch=useDispatch();
   useEffect(() => {
-    // fetchData();
-    fetchCart();
+      dispatch(fetchProducts());
   }, []);
+
+  useEffect(() => {
+    dispatch(isLoading(true));
+    const timer = setTimeout(() => {
+      dispatch(isLoading(false));
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [dispatch]);
+
+  if (loading) return <Loader />;
   return (
     <userContext.Provider value={{ cart: cart, setcart: setcart }}>
       <Router>
