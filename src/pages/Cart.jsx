@@ -10,6 +10,7 @@ export function Cart() {
   const [loading, setloading] = useState(false);
   const cart = useSelector((state)=>state.cart.cartItems);
   const dispatch=useDispatch();
+  
   const handleRemove = async (productId) => {
     setloading(true);
     try {

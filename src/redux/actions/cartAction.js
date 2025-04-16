@@ -9,6 +9,7 @@ export const addToCart = (productId) => async (dispatch) => {
     // })
     const tokenData = JSON.parse(localStorage.getItem("tok"));
     const token = tokenData?.token;
+    console.log(token);
     const res = await fetch("http://localhost:5000/api/orders/", {
       method: "POST",
       headers: {
