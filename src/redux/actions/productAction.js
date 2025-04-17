@@ -8,7 +8,7 @@ export const fetchProducts = () => async (dispatch) => {
             },
         });
         console.log(response);
-        const data =response.data;
+        const data =await response.data;
         console.log(data);
         dispatch({
             type: 'SET_PRODUCTS',
