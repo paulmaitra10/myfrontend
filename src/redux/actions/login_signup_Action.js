@@ -1,7 +1,7 @@
 export const signupUser = (userData) => async (dispatch) => {
     try {
         dispatch({ type: "SET_LOADER", payload: true });
-        const response = await fetch("http://localhost:5000/api/users/register", {
+        const response = await fetch("https://ecombackend-aih3.onrender.com/api/users/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export const signupUser = (userData) => async (dispatch) => {
 export const loginUser = (email, password) => async (dispatch) => {
     try {
         dispatch({ type: "SET_LOADER", payload: true });
-        const response = await fetch('http://localhost:5000/api/users/login', {
+        const response = await fetch('https://ecombackend-aih3.onrender.com/api/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

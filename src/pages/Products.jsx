@@ -20,7 +20,7 @@ export function Products() {
   const fetchData = async () => {
     try {
       setloading(true);
-      const response = await fetch('http://localhost:5000/api/products/', {
+      const response = await fetch('https://ecombackend-aih3.onrender.com/api/products/', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
