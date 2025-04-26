@@ -64,7 +64,7 @@ const ProductCard = ({ product }) => {
           {<motion.button
             value={product.id}
             disabled={loading}
-            onClick={AddtoCart}
+            onClick={AddtoCart}   
             whileTap={{ scale: 0.95 }}
             className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >

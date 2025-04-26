@@ -13,7 +13,7 @@ export function Login() {
   const dispatch=useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setloading(true);
+    // setloading(true);
    dispatch(loginUser(email,password));
   };
   return (

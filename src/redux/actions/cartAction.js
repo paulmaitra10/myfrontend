@@ -10,7 +10,7 @@ export const addToCart = (productId) => async (dispatch) => {
     const tokenData = JSON.parse(localStorage.getItem("tok"));
     const token = tokenData?.token;
     console.log(token);
-    const res = await fetch("https://ecombackend-aih3.onrender.com/api/orders/", {
+    const res = await fetch("http://localhost:5000/api/orders/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,13 +42,13 @@ export const removeFromCart = (productId) => async (dispatch) => {
     // })
     const tokenData = JSON.parse(localStorage.getItem("tok"));
     const token = tokenData?.token;
-    const res = await fetch("https://ecombackend-aih3.onrender.com/api/orders/remove", {
+    const res = await fetch("http://localhost:5000/api/orders/remove", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ productId:productId }),
+      body: JSON.stringify({ productId: productId }),
     });
     const updatedCart = await res.json();
     console.log(updatedCart);
@@ -75,7 +75,7 @@ export const clearCart = () => async (dispatch) => {
     const tokenData = JSON.parse(localStorage.getItem("tok"));
     const token = tokenData?.token;
 
-    const res = await fetch("https://ecombackend-aih3.onrender.com/api/orders/totalremove", {
+    const res = await fetch("http://localhost:5000/api/orders/totalremove", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -84,8 +84,8 @@ export const clearCart = () => async (dispatch) => {
     });
 
     const clearedCart = await res.json();
-    const items=await clearedCart.items;
-    console.log(clearedCart.items);
+    const items = await clearedCart.items;
+    // console.log(clearedCart.items);
     dispatch({
       type: "REMOVE_FROM_CART",
       payload: items,

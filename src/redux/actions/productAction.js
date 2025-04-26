@@ -1,7 +1,7 @@
 import axios from 'axios';
 export const fetchProducts = () => async (dispatch) => {
     try {
-        const response = await axios.get('https://ecombackend-aih3.onrender.com/api/products/',
+        const response = await axios.get('http://localhost:5000/api/products/',
              {
             headers: {
                 'Content-Type': 'application/json',
