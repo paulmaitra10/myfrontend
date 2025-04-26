@@ -58,7 +58,7 @@ export function Signup() {
                 className="w-full pl-10 pr-3 py-2 border-b-2 border-gray-300 bg-transparent text-gray-900 placeholder-transparent focus:outline-none focus:border-blue-500 transition-all duration-300 peer"
                 placeholder={"Email-Address"}
                 required
-                type="text"
+                type="email"
                 value={email}
                 onChange={(e)=>setEmail(e.target.value)}
               />

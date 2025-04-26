@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Mail, Lock} from "lucide-react";
+import { Mail, Lock } from "lucide-react";
 import { button, div } from "framer-motion/client";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/actions/login_signup_Action";
@@ -10,11 +10,11 @@ export function Login() {
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     // setloading(true);
-   dispatch(loginUser(email,password));
+    dispatch(loginUser(email, password));
   };
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
@@ -30,10 +30,11 @@ export function Login() {
                 {<Mail size={20} />}
               </div>
               <input
+                type="email"
                 className="w-full pl-10 pr-3 py-2 border-b-2 border-gray-300 bg-transparent text-gray-900 placeholder-transparent focus:outline-none focus:border-blue-500 transition-all duration-300 peer"
                 placeholder={"Email-Address"}
                 required
-                onChange={(e)=>setemail(e.target.value)}
+                onChange={(e) => setemail(e.target.value)}
               />
 
               <label className="absolute left-10 -top-3.5 text-sm text-gray-600 transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-500">
@@ -48,7 +49,7 @@ export function Login() {
                 className="w-full pl-10 pr-3 py-2 border-b-2 border-gray-300 bg-transparent text-gray-900 placeholder-transparent focus:outline-none focus:border-blue-500 transition-all duration-300 peer"
                 placeholder={"Password"}
                 required
-                onChange={(e)=>setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <label className="absolute left-10 -top-3.5 text-sm text-gray-600 transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-500">
                 {'Password'}
@@ -56,13 +57,13 @@ export function Login() {
             </div>
 
             {error && <div className="text-red-500">{error}</div>}
-            
 
-              {loading ? (
-                <button type="submit" disabled={loading}>Logging in.....</button>
-              ) : (
-               <button type="submit" className="bg-blue-600 p-2 text-white rounded-md">Log in</button>
-              )}
+
+            {loading ? (
+              <button type="submit" disabled={loading}>Logging in.....</button>
+            ) : (
+              <button type="submit" className="bg-blue-600 p-2 text-white rounded-md">Log in</button>
+            )}
           </form>
 
           <div className="relative">
