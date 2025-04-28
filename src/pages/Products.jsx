@@ -97,11 +97,11 @@ export function Products() {
                   className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
-              <div className="flex mx-aut  justify-evenly p-4 bg-gray-100 rounded-md">
-                <button value={''} onClick={handleChange} className="px-4 py-2 bg-slate-500 text-white rounded-md hover:bg-slate-600">All</button>
-                <button value={'tablets'} onClick={handleChange} className="px-4 py-2 bg-slate-500 text-white rounded-md hover:bg-slate-600">Tablets</button>
-                <button value={'Laptops'} onClick={handleChange} className="px-4 py-2 bg-slate-500 text-white rounded-md hover:bg-slate-600">Laptops</button>
-                <button value={'Mobiles'} onClick={handleChange} className="px-4 py-2 bg-slate-500 text-white rounded-md hover:bg-slate-600">Mobiles</button>
+              <div className="flex mx-auto justify-evenly p-4 bg-gray-100 rounded-md">
+                <button value={''} onClick={handleChange} className="px-4 py-2 bg-slate-500 text-white rounded-md hover:bg-slate-600 ">All</button>
+                <button value={'tablets'} onClick={handleChange} className="px-4 py-2 bg-slate-500 text-white rounded-md hover:bg-slate-600 ">Tablets</button>
+                <button value={'Laptops'} onClick={handleChange} className="px-4 py-2 bg-slate-500 text-white rounded-md hover:bg-slate-600 ">Laptops</button>
+                <button value={'Mobiles'} onClick={handleChange} className="px-4 py-2 bg-slate-500 text-white rounded-md hover:bg-slate-600 ">Mobiles</button>
               </div>
             </div>
             <motion.div

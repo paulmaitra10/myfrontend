@@ -56,7 +56,7 @@ const ProductCard = ({ product }) => {
           />
         </Link>
       </div>
-      <div className="p-4">
+      <div className="p-4  h-full">
         <h3 className="text-lg font-semibold text-gray-800">{product.title}</h3>
         <p className="text-sm text-gray-600 mt-1">{product.description}</p>
         <div className="flex justify-between items-center mt-4">

@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from './redux/actions/productAction';
 import { isLoading } from './redux/actions/loaderAction';
 import Loader from './components/Loader';
+import ScrollToTop from './ScrollToTop';
 const userContext = createContext();
 function App() {
   // const [loading, setloading] = useState(false);
@@ -43,6 +44,7 @@ function App() {
         <div className="min-h-screen bg-gray-50">
           <Navbar cart={cart}/>
           <div className="pt-16"> {/* Add padding top to account for fixed navbar */}
+          <ScrollToTop/>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products />} />
@@ -54,7 +56,6 @@ function App() {
               <Route path='/fleet' element={<Fleet />} />
             </Routes>
           </div>
-
         </div>
         <Footer />
       </Router>
