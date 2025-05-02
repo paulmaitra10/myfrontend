@@ -4,7 +4,7 @@ export const signupUser = (userData, navigate) => async (dispatch) => {
   try {
     console.log(userData); 
     dispatch({ type: "SET_LOADER", payload: true });
-    const response = await fetch("https://ecombackend-aih3.onrender.com//api/users/register", {
+    const response = await fetch("https://ecombackend-aih3.onrender.com/api/users/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export const signupUser = (userData, navigate) => async (dispatch) => {
 export const loginUser = (email, password) => async (dispatch) => {
     try {
         dispatch({ type: "SET_LOADER", payload: true });
-        const response = await fetch('https://ecombackend-aih3.onrender.com//api/users/login', {
+        const response = await fetch('https://ecombackend-aih3.onrender.com/api/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ export const loginUser = (email, password) => async (dispatch) => {
  export const confirmEmail = (token) =>async (dispatch) => {
     try {
     console.log(token);
-      const response = await fetch(`https://ecombackend-aih3.onrender.com//api/users/confirm-email?token=${token}`, {
+      const response = await fetch(`https://ecombackend-aih3.onrender.com/api/users/confirm-email?token=${token}`, {
         method: 'POST', // Sending a GET request to the backend
         headers: {
           'Content-Type': 'application/json', // If needed (for JSON APIs)

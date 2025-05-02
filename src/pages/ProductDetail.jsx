@@ -16,7 +16,7 @@ function ProductDetail() {
   const getProductDetail = async () => {
     try {
       setlaoding(true);
-      const response = await fetch("https://ecombackend-aih3.onrender.com//api/products/");
+      const response = await fetch("https://ecombackend-aih3.onrender.com/api/products/");
       const items = await response.json();
       setdata(items);
       const filteredProducts = items.filter((i) => i.id === parseInt(id))
