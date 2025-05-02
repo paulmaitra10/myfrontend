@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("tok");
+    localStorage.removeItem("cuuxx");
     window.location.reload();
   }
   const cart =useSelector((state) => state.cart.cartItems);

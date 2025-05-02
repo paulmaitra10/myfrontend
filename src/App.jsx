@@ -17,6 +17,11 @@ import { fetchProducts } from './redux/actions/productAction';
 import { isLoading } from './redux/actions/loaderAction';
 import Loader from './components/Loader';
 import ScrollToTop from './ScrollToTop';
+import { displayPartsToString } from 'typescript';
+import { ConfirmEmail } from './pages/ConfirmEmail';
+import { Check } from 'lucide-react';
+import CheckEmail from './pages/CheckEmail';
+import CustomSnackbar from './components/customSnackbar';
 const userContext = createContext();
 function App() {
   // const [loading, setloading] = useState(false);
@@ -25,6 +30,7 @@ function App() {
   const token=localStorage.getItem("tok");
   const loading=useSelector((state) => state.loader.loading);
   const dispatch=useDispatch();
+  const { snackbarMessage='', startColor='', endColor='' } = useSelector(state => state.snackbar||{});
   useEffect(() => {
       dispatch(fetchProducts());
   }, []);
@@ -35,7 +41,14 @@ function App() {
       dispatch(isLoading(false));
     }, 2000);
     return () => clearTimeout(timer);
-  }, [dispatch]);
+  }, []);
+
+  const handleClose = () => {
+    dispatch({
+      type: "SET_SNACKBAR_MESSAGE",
+      payload: { message: "", startColor: "", endColor: "" },
+    });
+  };
 
   if (loading) return <Loader />;
   return (
@@ -45,7 +58,8 @@ function App() {
           <Navbar cart={cart}/>
           <div className="pt-16"> {/* Add padding top to account for fixed navbar */}
           <ScrollToTop/>
-            <Routes>
+          <CustomSnackbar open={snackbarMessage !== ""} onClose={handleClose} message={snackbarMessage} startColor={startColor} endColor={endColor} />
+          <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products />} />
               <Route path='/login' element={<Login />} />
@@ -54,6 +68,8 @@ function App() {
               <Route path="/pro" element={<ProductCard product={data} />} />
               <Route path='/product/:id' element={<ProductDetail />} />
               <Route path='/fleet' element={<Fleet />} />
+              <Route path='/confirmEmail' element={<ConfirmEmail/>}/>
+              <Route path='/checkEmail' element={<CheckEmail/>}/>
             </Routes>
           </div>
         </div>

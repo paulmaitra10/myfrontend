@@ -15,17 +15,10 @@ const cartSlice = createSlice({
       .addCase("ADD_TO_CART", (state, action) => {
         console.log(action.payload);
         state.cartItems=[...state.cartItems, action.payload];
-        const tok = JSON.parse(localStorage.getItem("tok"));
-        const cart = tok?.cart || [];
-        cart.push(action.payload);
-        localStorage.setItem("tok", JSON.stringify({ ...tok, cart }));
       }
       )
       .addCase("REMOVE_FROM_CART", (state, action) => {
         state.cartItems=action.payload;
-        const tok = JSON.parse(localStorage.getItem("tok"));
-        tok.cart=action.payload;
-        localStorage.setItem("tok", JSON.stringify(tok));
       })
   }
 });

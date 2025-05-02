@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Mail, Lock,PersonStanding } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Mail, Lock, PersonStanding } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signupUser } from "../redux/actions/login_signup_Action";
 export function Signup() {
@@ -10,10 +10,11 @@ export function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
+  const navigate=useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setloading(true);
+    // setloading(true);
     setError("");
     setSuccess("");
     const userData = {
@@ -21,8 +22,8 @@ export function Signup() {
       email,
       password,
     };
-    dispatch(signupUser(userData));
-    setloading(false);
+    dispatch(signupUser(userData,navigate));
+    // setloading(false);
   };
 
   return (
@@ -35,7 +36,7 @@ export function Signup() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="relative mb-6 transition-all duration-300 group">
+            <div className="relative mb-6 transition-all duration-300 group">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400 group-focus-within:text-blue-500">
                 {<PersonStanding size={20} />}
               </div>
@@ -43,8 +44,8 @@ export function Signup() {
                 className="w-full pl-10 pr-3 py-2 border-b-2 border-gray-300 bg-transparent text-gray-900 placeholder-transparent focus:outline-none focus:border-blue-500 transition-all duration-300 peer"
                 placeholder="Name"
                 required
-                onChange={(e)=>setUsername(e.target.value)}
-                />
+                onChange={(e) => setUsername(e.target.value)}
+              />
               <label className="absolute left-10 -top-3.5 text-sm text-gray-600 transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-500">
                 {'Name'}
               </label>
@@ -54,13 +55,12 @@ export function Signup() {
                 {<Mail size={20} />}
               </div>
               <input
-          
+                type="email"
                 className="w-full pl-10 pr-3 py-2 border-b-2 border-gray-300 bg-transparent text-gray-900 placeholder-transparent focus:outline-none focus:border-blue-500 transition-all duration-300 peer"
                 placeholder={"Email-Address"}
                 required
-                type="email"
                 value={email}
-                onChange={(e)=>setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <label className="absolute left-10 -top-3.5 text-sm text-gray-600 transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-500">
                 {'Email Address'}
@@ -71,22 +71,18 @@ export function Signup() {
                 {<Lock size={20} />}
               </div>
               <input
-              type="text"
-              value={password}
+                type="text"
+                value={password}
                 className="w-full pl-10 pr-3 py-2 border-b-2 border-gray-300 bg-transparent text-gray-900 placeholder-transparent focus:outline-none focus:border-blue-500 transition-all duration-300 peer"
                 placeholder={"Password"}
                 required
-                onChange={(e)=>setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <label className="absolute left-10 -top-3.5 text-sm text-gray-600 transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-500">
                 {'Password'}
               </label>
             </div>
-              {loading ? (
-               <button type="submit" disabled={loading}>Signing Up...</button>
-              ) : (
-                <button type='submit' className="bg-blue-600 p-2 text-white rounded-md">Sign Up</button>
-              )}
+              <button type="submit" className="bg-blue-600 p-2 text-white rounded-md">Sign Up</button>
           </form>
         </div>
       </div>

@@ -55,15 +55,8 @@ export function Login() {
                 {'Password'}
               </label>
             </div>
-
             {error && <div className="text-red-500">{error}</div>}
-
-
-            {loading ? (
-              <button type="submit" disabled={loading}>Logging in.....</button>
-            ) : (
               <button type="submit" className="bg-blue-600 p-2 text-white rounded-md">Log in</button>
-            )}
           </form>
 
           <div className="relative">

@@ -12,12 +12,12 @@ export function Cart() {
   const dispatch=useDispatch();
   
   const handleRemove = async (productId) => {
-    setloading(true);
+    // setloading(true);
     try {
-      await dispatch(removeFromCart(productId));
-      toast.success("Item removed from Cart");
+      dispatch(removeFromCart(productId));
+      // toast.success("Item removed from Cart");
     } catch (err) {
-      toast.error("Unable to remove the product from the cart");
+      // toast.error("Unable to remove the product from the cart");
     } finally {
       setloading(false);
     }
@@ -31,9 +31,9 @@ export function Cart() {
         return;
       }
       dispatch(clearCart());
-      toast.success("Cart cleared successfully");
+      // toast.success("Cart cleared successfully");
     } catch (err) {
-      toast.error("Unable to clear your Cart at the moment");
+      // toast.error("Unable to clear your Cart at the moment");
     }
   };
 
