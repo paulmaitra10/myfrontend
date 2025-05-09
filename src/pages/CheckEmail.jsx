@@ -19,7 +19,7 @@ const CheckEmail = () => {
           className="w-20 mx-auto mb-6"
         />
         <h1 className="text-2xl font-semibold text-gray-800 mb-2">
-          Check Your Email (Spam Folder)
+          Check Your Email (Also check Spam Folder)
         </h1>
         <p className="text-gray-600 mb-6">
           We’ve sent a confirmation link to your email. Please check your inbox and follow the link to continue.

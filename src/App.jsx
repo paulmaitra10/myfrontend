@@ -22,6 +22,7 @@ import { ConfirmEmail } from './pages/ConfirmEmail';
 import { Check } from 'lucide-react';
 import CheckEmail from './pages/CheckEmail';
 import CustomSnackbar from './components/customSnackbar';
+import NotFoundPage from './pages/NotFoundPage';
 const userContext = createContext();
 function App() {
   // const [loading, setloading] = useState(false);
@@ -70,6 +71,7 @@ function App() {
               <Route path='/fleet' element={<Fleet />} />
               <Route path='/confirmEmail' element={<ConfirmEmail/>}/>
               <Route path='/checkEmail' element={<CheckEmail/>}/>
+              <Route path='*' element={<NotFoundPage/>}/>
             </Routes>
           </div>
         </div>

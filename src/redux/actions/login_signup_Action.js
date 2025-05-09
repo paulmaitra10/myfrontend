@@ -97,7 +97,7 @@ export const loginUser = (email, password) => async (dispatch) => {
           });      }
 }
 
- export const confirmEmail = (token) =>async (dispatch) => {
+ export const confirmEmail = (token,navigate) =>async (dispatch) => {
     try {
     console.log(token);
       const response = await fetch(`https://ecombackend-aih3.onrender.com/api/users/confirm-email?token=${token}`, {
@@ -126,7 +126,10 @@ export const loginUser = (email, password) => async (dispatch) => {
           startColor: "#effeed",
         },
       });
-    window.location.href = "/"
+      if (navigate) {
+        // dispatch({ type: "SET_LOADER", payload: false });
+        navigate("/");
+      }
     } catch (error) {
       console.log('Error:', error);
       dispatch({

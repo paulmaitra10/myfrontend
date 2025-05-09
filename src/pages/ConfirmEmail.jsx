@@ -1,31 +1,46 @@
-import { h1 } from "framer-motion/client";
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { confirmEmail } from "../redux/actions/login_signup_Action";
+import { CheckCircle } from "lucide-react";
 
 export function ConfirmEmail() {
-    const location=useLocation();
-    const query = new URLSearchParams(location.search);
-    const token = query.get("token"); 
-    console.log(token);
-    const dispatch=useDispatch();
-    const navigate=useDispatch();
-    const handleClick=()=>{
-        dispatch(confirmEmail(token,navigate));
-    }
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const token = query.get("token");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    {if(token){return (
-      <div className="flex flex-col items-center justify-center mt-16">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">Your Email has been Confirmed</h1>
+  const handleClick = () => {
+    dispatch(confirmEmail(token, navigate));
+  };
+
+  if (!token) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-50">
+        <h1 className="text-3xl font-semibold text-red-600">Something's Wrong</h1>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
+      <div className="bg-white shadow-lg rounded-2xl p-8 max-w-md w-full text-center">
+        <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+        <h1 className="text-2xl font-semibold text-gray-800 mb-2">Email Confirmed!</h1>
+        <p className="text-gray-600 mb-6">
+          Your email has been successfully verified. You can now continue shopping with us.
+        </p>
         <button
-          className="px-6 py-2 bg-blue-600 text-white mt-4 font-medium text-sm rounded-lg shadow hover:bg-blue-700 cursor-pointer"
           onClick={handleClick}
+          className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition duration-300"
         >
-         Click here to Continue
+          Continue to Shop
         </button>
       </div>
-    )}else return(<h1 className="text-4xl font-bold text-gray-800 mb-4">Something's Wrong </h1>)}
-  }
+    </div>
+  );
+}
+
 
   

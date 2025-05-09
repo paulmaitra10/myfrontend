@@ -3,6 +3,8 @@ import { Mail, Lock, PersonStanding } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signupUser } from "../redux/actions/login_signup_Action";
+import EyeOpen from "../assets/EyeOpen.svg";
+import EyeClose from "../assets/EyeClose.svg";
 export function Signup() {
   const [loading, setloading] = useState(false);
   const [success, setSuccess] = useState("");
@@ -11,10 +13,11 @@ export function Signup() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+  const [isEyeOpen, setisEyeOpen] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setloading(true);
     setError("");
     setSuccess("");
     const userData = {
@@ -22,10 +25,13 @@ export function Signup() {
       email,
       password,
     };
-    dispatch(signupUser(userData,navigate));
+    dispatch(signupUser(userData, navigate));
     // setloading(false);
   };
-
+  const handleEyeToggle = () => {
+    setisEyeOpen(!isEyeOpen);
+    setformType(isEyeOpen ? "password" : "text");
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -46,6 +52,7 @@ export function Signup() {
                 required
                 onChange={(e) => setUsername(e.target.value)}
               />
+
               <label className="absolute left-10 -top-3.5 text-sm text-gray-600 transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-500">
                 {'Name'}
               </label>
@@ -71,18 +78,26 @@ export function Signup() {
                 {<Lock size={20} />}
               </div>
               <input
-                type="text"
                 value={password}
                 className="w-full pl-10 pr-3 py-2 border-b-2 border-gray-300 bg-transparent text-gray-900 placeholder-transparent focus:outline-none focus:border-blue-500 transition-all duration-300 peer"
                 placeholder={"Password"}
                 required
                 onChange={(e) => setPassword(e.target.value)}
+                type={isEyeOpen ? "text" : "password"}
               />
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onClick={handleEyeToggle}>
+                <img
+                  className="w-5 h-5"
+                  src={isEyeOpen ? EyeOpen : EyeClose}
+                  onClick={handleEyeToggle}
+                  alt="toggle visibility"
+                />
+              </div>
               <label className="absolute left-10 -top-3.5 text-sm text-gray-600 transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-sm peer-focus:text-blue-500">
                 {'Password'}
               </label>
             </div>
-              <button type="submit" className="bg-blue-600 p-2 text-white rounded-md">Sign Up</button>
+            <button type="submit" className="bg-blue-600 p-2 text-white rounded-md">Sign Up</button>
           </form>
         </div>
       </div>
