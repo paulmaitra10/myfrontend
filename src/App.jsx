@@ -32,9 +32,6 @@ function App() {
   const loading=useSelector((state) => state.loader.loading);
   const dispatch=useDispatch();
   const { snackbarMessage='', startColor='', endColor='' } = useSelector(state => state.snackbar||{});
-  useEffect(() => {
-      dispatch(fetchProducts());
-  }, []);
 
   useEffect(() => {
     dispatch(isLoading(true));
