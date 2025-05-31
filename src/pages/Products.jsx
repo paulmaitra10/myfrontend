@@ -11,8 +11,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../redux/actions/productAction';
 
 export function Products() {
-  const products = useSelector(state => state.product.products);
-  const [filteredProducts, setfilteredProducts] = useState(products || []);
   const handleChange = (e) => {
     const element = products.filter(
       (i) =>
@@ -21,6 +19,12 @@ export function Products() {
     );
     setfilteredProducts(element);
   }
+
+    useEffect(() => {
+      dispatch(fetchProducts());
+  }, []);
+  const [filteredProducts, setfilteredProducts] = useState(useSelector(state => state.product.products) || []);
+  
   return (
     <>
       <ToastContainer
