@@ -12,19 +12,27 @@ import { fetchProducts } from '../redux/actions/productAction';
 
 export function Products() {
   const dispatch=useDispatch();
-  const handleChange = (e) => {
-    const element = products.filter(
-      (i) =>
-        i.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
-        i.category.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    setfilteredProducts(element);
-  }
+  const products = useSelector(state => state.product.products); // extract from store
+  const [filteredProducts, setfilteredProducts] = useState([]);
 
-    useEffect(() => {
-      dispatch(fetchProducts());
-  }, []);
-  const [filteredProducts, setfilteredProducts] = useState(useSelector(state => state.product.products) || []);
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  // Update filteredProducts whenever products change
+  useEffect(() => {
+    setfilteredProducts(products || []);
+  }, [products]);
+
+  const handleChange = (e) => {
+    const value = e.target.value.toLowerCase();
+    const filtered = products.filter(
+      (i) =>
+        i.title.toLowerCase().includes(value) ||
+        i.category.toLowerCase().includes(value)
+    );
+    setfilteredProducts(filtered);
+  };
   
   return (
     <>
