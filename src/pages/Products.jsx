@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../redux/actions/productAction';
 
 export function Products() {
+  const dispatch=useDispatch();
   const handleChange = (e) => {
     const element = products.filter(
       (i) =>
