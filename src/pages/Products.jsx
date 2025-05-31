@@ -15,9 +15,9 @@ export function Products() {
   const products = useSelector(state => state.product.products); // extract from store
   const [filteredProducts, setfilteredProducts] = useState([]);
 
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchProducts());
+  // }, [dispatch]);
 
   // Update filteredProducts whenever products change
   useEffect(() => {
