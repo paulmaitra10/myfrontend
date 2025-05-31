@@ -41,6 +41,10 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+  
   const handleClose = () => {
     dispatch({
       type: "SET_SNACKBAR_MESSAGE",
