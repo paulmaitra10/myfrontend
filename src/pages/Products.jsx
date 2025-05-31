@@ -22,7 +22,7 @@ export function Products() {
   // Update filteredProducts whenever products change
   useEffect(() => {
     setfilteredProducts(products || []);
-  }, [products]);
+  }, []);
 
   const handleChange = (e) => {
     const value = e.target.value.toLowerCase();
