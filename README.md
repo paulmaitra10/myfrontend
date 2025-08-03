@@ -8,6 +8,26 @@ A responsive frontend web application built with modern web technologies. This p
 - 🎨 Modern UI/UX design
 - 📱 Fully responsive layout
 - 🔁 Easy API integration
-- 🔐 Auth-ready structure (optional)
+  
+## 🛠 Built With
 
-## 📁 Folder Structure
+- HTML5 & CSS3  
+- JavaScript (ES6+)  
+- React.js (or Angular/Vue - update accordingly)  
+- TailwindCSS / Bootstrap / Material UI (use the one you're using)  
+- Axios / Fetch API for HTTP requests  
+
+## 📦 Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/paulmaitra10/myfrontend.git
+
+# Navigate into the project directory
+cd myfrontend
+
+# Install dependencies
+npm install
+
+# Run the development server
+npm start
